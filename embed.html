@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)https://iframe.chat/embed/?chat=42980989 -->
+<html><div id="in-page-channel-node-id" data-channel-name="in_page_channel_Tdt1QG"></div><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--
+      
+      Chattable Version 4.2.0
+      
+    -->
+    
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0">
+    <title>Chattable</title>
+    <link href="./style.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="icon" type="image/x-icon" href="https://iframe.chat/favicon.ico">
+    <link rel="stylesheet" href="./icons.css">
+    <script src="./firebase.js"></script>
+    <script src="./markdown-it.min.js"></script>
+
+    <script>
+      var contextMenu;
+      if(window.matchMedia("(any-hover:none) and (orientation: portrait)").matches) {
+        // the above checks if there is no hoverable mouse available, like found on PCs, will only point true if device is purely touchscreen. Not just capable of touchscreen
+        contextMenu = "/scripts/iosContextMenu.js";
+      } else {
+        contextMenu = "/scripts/contextMenu.js";
+      }
+      var contextMenuScript = document.createElement("SCRIPT");
+      contextMenuScript.src = contextMenu;
+      document.getElementsByTagName("head")[0].appendChild(contextMenuScript);
+    </script><script src="./contextMenu.js"></script>
+    <script src="./socket.io.js"></script>
+    <script src="./popup.js"></script>
+    <script src="./tutorial.js"></script>
+    <script src="./code.js"></script>
+  <style type="text/css" id="chattable-custom-css">:root {
+   --notification-sfx: https://xobyte.org/files/WinXPNotify.mp3}
+*::selection {
+   color: #EEE;
+   background-color: #55E;
+   opacity: 1}
+@font-face {
+   font-family: "WinXP";
+   src: url('https://xobyte.org/files/fonts/win.woff')}
+body, html {
+  background-color: rgb(236, 233, 216);
+  font-family: MS Gothic, WinXP, Tahoma, sans-serif}
+.msgWrapper {
+  display: flex;
+  width: calc(100% - 20px);
+  align-items: center;
+  overflow: clip;
+  margin: 10px}
+.allMessages {
+  display: block;
+  background: transparent;
+  border: 1px solid rgb(208, 208, 191);
+  border-radius: 3px;
+  margin: 0;
+  line-height: 12px;
+  position: relative;
+  transition: margin 250ms ease;
+  transition-delay: 500ms;
+  width: 100%}
+.allMessages > pre:hover {
+    outline: dotted 1px #111}
+.allMessages:hover:after {
+   content: ' ';
+   position: absolute;
+   left: 0;
+   top: 0;
+   height: 100%;
+   width: 100%;
+   border-radius: inherit;
+   background-color: rgba(0, 0, 0, 0.05);
+   pointer-events: none}
+.allMessages:before {
+   content: attr(time);
+   float: right;
+   pointer-events: none;
+   font-style: italic;
+   font-size: 8pt;
+   color: #777}
+.sent .senderInfo {
+  color: #33F}
+.received .senderInfo {
+  color: #F11}
+#background {
+   scrollbar-color: unset;
+   scrollbar-width: unset}
+#background::-webkit-scrollbar, #background ::-webkit-scrollbar {
+     width: 20px}
+#background::-webkit-scrollbar-track, #background ::-webkit-scrollbar-track {
+  border-radius: 0;
+  background: linear-gradient(90deg, #DDD, #FEFEFB)}
+#background::-webkit-scrollbar-thumb, #background ::-webkit-scrollbar-thumb {
+  background: #C3D3FD; 
+  border: solid 1px #EEE;
+  border-radius: 2%;
+  box-shadow: 0 0 1px #7C9FD3, 0 0 5px rgba(126, 159, 211, 0.5) inset}
+#background::-webkit-scrollbar-button:single-button, #background ::-webkit-scrollbar-button:single-button {
+  background-color: #C3D3FD;
+  width: calc(100% - 2px);
+  border: solid 1px #EEE;
+  border-radius: 2%;
+  box-shadow: 0 0 5px rgba(126, 159, 211, 0.5) inset;
+  min-height: 20px}
+#background::-webkit-scrollbar-button:single-button:vertical:increment, #background ::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url(https://xp.xobyte.org/resources/down.PNG);
+  background-size: 100% 100%}
+#background::-webkit-scrollbar-button:single-button:vertical:decrement, #background ::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url(https://xp.xobyte.org/resources/up.PNG);
+  background-size: 100% 100%}
+#background::-webkit-scrollbar-button:hover, #background ::-webkit-scrollbar-button:hover {
+  background: #7C9FD3}
+#background * {
+  scrollbar-color: #333 transparent;
+  scrollbar-width: thin}
+.msgBody {
+   cursor: text}
+ #input, #nameEntry {
+   background-color: #FFF;
+   border: inset 2px rgb(208, 208, 191);
+   padding: 5px;
+   width: calc(100% - 14px);
+   border-radius: 0;
+   font-family: inherit}
+ #input:focus, #nameEntry:focus {
+   outline: dotted 1px #000}
+ a {
+   font-family: inherit;
+   color: inherit !important}
+ #timestamp {
+   display: none;
+   color: #555;
+   font-size: 10pt}
+ #top_banner {
+   display: none}
+ #top_banner:before {
+   display: inline-block;
+   width: 12pt;
+   height: 12pt;
+   content: ' ';
+   background-image: url('https://xobyte.neocities.org/files/win-min.png');
+   background-size: 100% 100%;
+   margin-right: 5px}
+ #textInput {
+   background-color: rgb(236, 233, 216)}
+input, button {
+  font-family: inherit}
+blockquote {
+   border: 1px solid rgb(208, 208, 191);
+   border-radius: 3px;
+   line-height: 12px;
+   position: relative}
+.mod, .owner {
+  background-color: transparent;
+  background-image: url('/media/crown.png');
+  background-size: 100% 100%;
+  border-radius: 0}
+.owner {
+   filter: hue-rotate(-60deg)}
+.mod {
+   filter: hue-rotate(-180deg)}
+#emojiTray {
+  background-color: rgb(236, 233, 216);
+  color: #222}
+#settings {
+  right: 25px}
+#settingsMenu {
+  padding: 0;
+  width: 100%}
+#settingsMenu p {
+  padding: 3px 10px 3px 10px}
+#save {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  padding: 3px 6px 3px 6px;
+  font-size: 10pt;
+  position: relative;
+  border: outset 2px #6982EE;
+  border-radius: 3px;
+  text-transform: uppercase;
+  cursor: pointer}
+#save:hover::after {
+  content: " ";
+  display: block;
+  width: 95%;
+  height: 80%;
+  border: dotted 1px #000;
+  position: absolute;
+  left: 2%;
+  top: 10%;
+  border-radius: 6px}
+#save:hover {
+  border-color: #C50}
+#is_typing {
+  background-color: transparent;
+  border-radius: 0;
+  overflow: visible;
+  width: auto}
+#is_typing:before {
+  content: "Typing";
+  font-size: 8pt}
+#is_typing > span {
+   background-color: #000;
+   height: 2px;
+   width: 2px;
+   border-radius: 0}</style></head>
+  <body style="height: 0px;">
+    <div id="main" style="opacity: 1;">
+      <header id="top_banner"><a href="https://iframe.chat/" target="_blank" style="color: inherit; text-decoration: none;">Chattable</a></header>
+      <!--<base href="/" target="_blank">--><base href="." target="_blank">
+      <div id="background" style="height: calc(0px + 100vh);"><div class="msgWrapper"><p class="recieved received allMessages" id="-OU1OQVm53G_8h0DgBZz" uid="FIREBASE_BOT" time="30/06/2025 21:52:15"><p class=" senderInfo">Bob</p><pre class="msgBody"><p>Here's your new chat. For a list of commands &amp; other chat help, visit <a href="https://iframe.chat/help" target="_blank">https://iframe.chat/help</a></p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OU28DYpwnWjWEMqT9rw" uid="7eIWtvOZIQSmU4NbYRGAvX1oSSL2" time="01/07/2025 01:21:05"><p class=" senderInfo"><div title="Chat Owner" class="owner badge"></div>Muhammad</p><pre class="msgBody"><p>hello</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OU2G8n3P2oDAXx_HW_F" uid="Ty9RkjcH98UbVWxyU5hR5VkgKoj2" time="01/07/2025 01:55:43"><p class=" senderInfo">anon</p><pre class="msgBody"><p>yo</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OUVNy6KxgZhHEbAaYNi" uid="Ty9RkjcH98UbVWxyU5hR5VkgKoj2" time="06/07/2025 17:38:51"><p class=" senderInfo">aha</p><pre class="msgBody"><p>wagwan</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OUVOIFFWS1vZDFzcrtM" uid="cbTKDpfAMmSwVVYbkeqMgKcmWif1" time="06/07/2025 17:40:18"><p class=" senderInfo">Anonymous#475cvcv5</p><pre class="msgBody"><p>vccvb</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OUVOLSjaiy1dtcYmpg6" uid="cbTKDpfAMmSwVVYbkeqMgKcmWif1" time="06/07/2025 17:40:31"><p class=" senderInfo">Anonymous#475cvcv5</p><pre class="msgBody"><p>aaaa</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OUVOMrFJPBNCrhdzXWd" uid="Ty9RkjcH98UbVWxyU5hR5VkgKoj2" time="06/07/2025 17:40:37"><p class=" senderInfo">aha</p><pre class="msgBody"><p>I can see u ***</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OUVOPN-rBtOFyNYzn0J" uid="cbTKDpfAMmSwVVYbkeqMgKcmWif1" time="06/07/2025 17:40:47"><p class=" senderInfo">Anonymous#475cvcv5</p><pre class="msgBody"><p>***</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-OW57s7fN4AqYgaOrfTK" uid="gJdhPA0hadgG6fwCthFisdKWoop1" time="26/07/2025 11:49:48"><p class=" senderInfo">Anonymous#8342</p><pre class="msgBody"><p>human resources??</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-O_sCvevSbHqiyh1E5Ar" uid="EiouBp2u9CZAVLySByVjtG0y1M53" time="23/09/2025 22:15:42"><p class=" senderInfo">faggaron</p><pre class="msgBody"><p>hi ***s</p>
+</pre></p></div><div class="msgWrapper"><p class="recieved received allMessages" id="-O_sCxRDdlO2Bk8vAOpQ" uid="EiouBp2u9CZAVLySByVjtG0y1M53" time="23/09/2025 22:15:49"><p class=" senderInfo">faggaron</p><pre class="msgBody"><p>hi ***s</p>
+</pre></p></div><div id="extraSpace"></div></div>
+      <div id="textInput">
+        <div id="emojiTray">
+          <h3 style="margin: 0;">Chat Emojis</h3>
+          <div id="emojiGrid"><small style="margin: none">This chat doesn't have any custom emojis yet.</small></div>
+        </div>
+        <div id="is_typing"><span></span><span></span><span></span></div>
+        <div id="input" autocomplete="off" role="textbox" contenteditable="true"></div>
+        <button id="emojiTrayToggle"></button>
+      </div>
+      <div id="settings"></div>
+      <div id="maint" style="display: none;"> <!-- Hide this element if you don't want server maintenance/downtime updates -->
+        <p>The Chattable server is currently undergoing maintenance. You may experience downtime.</p>
+      </div>
+    </div>
+    
+  
+</body></html>

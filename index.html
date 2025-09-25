@@ -1,0 +1,3982 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>404Arab - Welcome to Windows XP</title>
+<script src="https://iframe.chat/scripts/main.min.js"></script>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, sans-serif;
+            font-size: 11px;
+            overflow: hidden;
+            background: #0078d4;
+            height: 100vh;
+            position: relative;
+            cursor: default;
+        }
+
+        .desktop {
+    width: 100%;
+    height: calc(100vh - 40px);
+    position: relative;
+    background-image: url('bg/bg3.jpg'); /* make sure your URL is correct */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+        .desktop-icon {
+            position: absolute;
+            width: 70px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-size: 11px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            text-align: center;
+            left: 20px; /* All icons aligned to the same left position */
+        }
+
+        .desktop-icon:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .desktop-icon img {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 5px;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, #245EDC 0%, #1941A5 50%, #13369E 100%);
+            border-top: 1px solid #4a90e2;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            z-index: 1000;
+        }
+
+        .start-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            float: left;
+            height: 100%;
+            width: 125px;
+            background-color: rgb(25, 140, 25);
+            color: rgb(255, 255, 255);
+            font-size: 15pt;
+            font-weight: bolder;
+            font-style: italic;
+            font-family: Tahoma, monospace;
+            position: relative;
+            bottom: 0px;
+            left: 0px;
+            box-shadow: rgb(0, 0, 0) 0px 0px 3px inset;
+            user-select: none;
+            cursor: pointer;
+            border-width: 1px 1px;
+            border-style: none none solid solid;
+            border-color: rgb(14, 65, 14) rgb(14, 65, 14);
+            border-image: initial;
+            border-top: none;
+            border-right: none;
+            margin-right: 10px;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+
+        .start-button:active {
+            box-shadow: rgb(0, 0, 0) 0px 0px 5px inset;
+            background-color: rgb(20, 115, 20);
+        }
+
+        .window {
+            position: absolute;
+            background: #ece9d8;
+            border: 1px solid #0054e3;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+            min-width: 200px;
+            min-height: 150px;
+        }
+
+        .window.active-window {
+            box-shadow: 6px 6px 12px rgba(0,0,0,0.4);
+        }
+
+        .window.active-window .window-titlebar {
+            background: linear-gradient(to bottom, #0078ff 0%, #0054e3 100%);
+        }
+
+        .window:not(.active-window) .window-titlebar {
+            background: linear-gradient(to bottom, #7a7a7a 0%, #5a5a5a 100%);
+            color: #cccccc;
+        }
+
+        .window-titlebar {
+            height: 25px;
+            background: linear-gradient(to bottom, #0078ff 0%, #0054e3 100%);
+            border-radius: 7px 7px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+            cursor: move;
+            color: white;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .window-control {
+            width: 17px;
+            height: 15px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: black;
+        }
+
+        .window-control.close {
+            background: linear-gradient(to bottom, #ff4444 0%, #cc0000 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        .window-control:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .window-control.close:hover {
+            background: linear-gradient(to bottom, #ff6666 0%, #dd0000 100%);
+        }
+
+        .window-control:active {
+            border: 1px inset #d4d0c8;
+        }
+
+        .window-content {
+            padding: 10px;
+            background: #ece9d8;
+            border-radius: 0 0 7px 7px;
+        }
+
+        /* ===== NEW IMAGE-ONLY POPUP STYLES ===== */
+        .classic-popup {
+            position: fixed;
+            background: white;
+            border: 3px outset #c0c0c0;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+            z-index: 1500;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .image-popup {
+            background: #ece9d8;
+        }
+
+        .popup-titlebar {
+            height: 25px;
+            background: linear-gradient(to bottom, #0078ff 0%, #0054e3 100%);
+            color: white;
+            font-weight: bold;
+            padding: 0 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            border-bottom: 1px solid #0054e3;
+        }
+
+        .popup-close {
+            width: 17px;
+            height: 15px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: black;
+        }
+
+        .popup-close:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .popup-close:active {
+            border: 1px inset #d4d0c8;
+        }
+
+        .popup-image-container {
+            background: white;
+            border: 1px inset #d4d0c8;
+            overflow: hidden;
+        }
+
+        .popup-image {
+            transition: transform 0.2s ease;
+        }
+
+        .popup-image:hover {
+            transform: scale(1.02);
+        }
+
+        .placeholder-image {
+            color: #999;
+            border: 2px dashed #ccc;
+        }
+
+        .placeholder-image:hover {
+            background: #f8f8f8 !important;
+            color: #666;
+        }
+
+        /* Keep essential animations */
+        @keyframes shake {
+            0% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(1px) translateY(-1px); }
+            50% { transform: translateX(-1px) translateY(1px); }
+            75% { transform: translateX(1px) translateY(1px); }
+            100% { transform: translateX(-1px) translateY(-1px); }
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .popup-urgent {
+            animation: shake 0.3s ease-in-out infinite;
+            border-color: #ff0000 !important;
+            box-shadow: 0 0 10px rgba(255,0,0,0.5);
+        }
+
+        /* Error Dialog Styles */
+        .error-dialog {
+            position: fixed;
+            background: #ece9d8;
+            border: 2px outset #d4d0c8;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+            z-index: 1002;
+            min-width: 300px;
+            max-width: 400px;
+            font-family: Tahoma, sans-serif;
+            font-size: 11px;
+        }
+
+        .error-dialog-titlebar {
+            height: 25px;
+            background: linear-gradient(to bottom, #0078ff 0%, #0054e3 100%);
+            color: white;
+            font-weight: bold;
+            padding: 0 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #0054e3;
+        }
+
+        .error-dialog-close {
+            width: 17px;
+            height: 15px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: black;
+        }
+
+        .error-dialog-close:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .error-dialog-content {
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .error-icon {
+            width: 32px;
+            height: 32px;
+            background: #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .error-message {
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .error-buttons {
+            padding: 10px 15px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #d4d0c8;
+        }
+
+        .error-button {
+            min-width: 60px;
+            height: 23px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-family: Tahoma, sans-serif;
+        }
+
+        .error-button:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .error-button:active {
+            border: 1px inset #d4d0c8;
+            background: linear-gradient(to bottom, #c7c7c7 0%, #e1e1e1 100%);
+        }
+
+        .habibi {
+            position: fixed;
+            bottom: 120px;
+            right: 90px;
+            width: 60px;
+            height: 60px;
+            z-index: 999;
+            animation: bounce 2s infinite;
+        }
+
+        .habibi-image {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transform: scaleX(-1);
+        }
+
+        .speech-bubble {
+            position: fixed;
+            bottom: 250px;
+            right: 20px;
+            width: 200px;
+            background: #ffffc0;
+            border: 2px solid #000;
+            border-radius: 15px;
+            padding: 10px;
+            font-size: 11px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 30px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #ffffc0;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            right: 28px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 12px solid #000;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== BROWSER INTERFACE STYLES ===== */
+        .browser-interface {
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 25px);
+            background: #ece9d8;
+            font-family: Tahoma, sans-serif;
+            font-size: 11px;
+        }
+
+        .browser-menubar {
+            background: linear-gradient(to bottom, #ece9d8 0%, #d4d0c8 100%);
+            border-bottom: 1px solid #999;
+            padding: 2px 5px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .menu-item {
+            padding: 3px 8px;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .menu-item:hover {
+            background: #b6bdd2;
+        }
+
+        .browser-navbar {
+            background: linear-gradient(to bottom, #ece9d8 0%, #d4d0c8 100%);
+            border-bottom: 1px solid #999;
+            padding: 3px 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 2px;
+        }
+
+        .nav-btn {
+            width: 24px;
+            height: 22px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .nav-btn:active {
+            border: 1px inset #d4d0c8;
+        }
+
+        .address-bar-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .address-label {
+            font-size: 11px;
+            color: #333;
+        }
+
+        .address-bar {
+            flex: 1;
+            height: 20px;
+            border: 1px inset #d4d0c8;
+            padding: 2px 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            background: white;
+        }
+
+        .go-btn {
+            width: 30px;
+            height: 22px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .go-btn:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .favorites-bar {
+            background: #f0f0f0;
+            border-bottom: 1px solid #999;
+            padding: 2px 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .favorites-label {
+            font-size: 11px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .favorite-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 11px;
+            white-space: nowrap;
+            padding: 1px 3px;
+        }
+
+        .favorite-link:hover {
+            background: #ccc;
+            text-decoration: underline;
+        }
+
+        .browser-content {
+            flex: 1;
+            background: white;
+            overflow-y: auto;
+            border: 1px inset #d4d0c8;
+        }
+
+        .webpage-container {
+            width: 100%;
+            height: 100%;
+            background: white;
+        }
+
+        /* ===== RETRO WEBSITE STYLES ===== */
+        .retro-website {
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+            min-height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .retro-header {
+            background: linear-gradient(45deg, #ff6b35, #f9ca24, #ff6b35);
+            background-size: 200% 200%;
+            animation: rainbow-bg 3s ease infinite;
+            border-bottom: 3px solid #000;
+            padding: 10px;
+             margin-bottom: 20px;
+        }
+
+        .header-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .spinning-logo {
+            font-size: 48px;
+            animation: spin 2s linear infinite;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .site-title {
+            text-align: center;
+            flex: 1;
+        }
+
+        .site-title h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 3px 3px 0 #000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #ffff00;
+            text-shadow: 2px 2px 0 #000;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .visitor-counter {
+            background: #000;
+            color: #00ff00;
+            padding: 5px 10px;
+            border: 2px solid #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .counter-digits {
+            color: #ffff00;
+            font-weight: bold;
+        }
+
+        .scrolling-text {
+            background: #000;
+            color: #00ff00;
+            padding: 5px;
+            border: 2px solid #fff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .retro-main {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            min-height: 400px;
+        }
+
+        .content-column {
+            flex: 2;
+        }
+
+        .sidebar-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .retro-section {
+            background: #f8f8f8;
+            border: 2px outset #d4d0c8;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .section-title {
+            background: linear-gradient(to right, #0066cc, #0044aa);
+            color: white;
+            margin: -15px -15px 15px -15px;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border-bottom: 2px solid #003388;
+        }
+
+        .news-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            font-size: 10px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .news-title {
+            font-weight: bold;
+            color: #0066cc;
+            margin: 5px 0;
+        }
+
+        .news-text {
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .contract-box {
+            background: #000;
+            color: #00ff00;
+            padding: 10px;
+            border: 1px solid #333;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+
+        .contract-label {
+            color: #ffff00;
+            margin-bottom: 5px;
+        }
+
+        .contract-address {
+            cursor: pointer;
+            word-break: break-all;
+        }
+
+        .contract-address:hover {
+            background: #333;
+        }
+
+        .click-to-copy {
+            font-size: 9px;
+            color: #999;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .trading-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .retro-button {
+            background: linear-gradient(to bottom, #ff6600, #cc3300);
+            color: white;
+            border: 2px outset #ff6600;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        .retro-button:hover {
+            background: linear-gradient(to bottom, #ff8800, #dd4400);
+        }
+
+        .retro-button:active {
+            border: 2px inset #ff6600;
+        }
+
+        .buy-button {
+            animation: pulse 2s infinite;
+        }
+
+        .mascot-section {
+            margin-bottom: 20px;
+        }
+
+        .mascot-box {
+            background: #ffffc0;
+            border: 3px solid #000;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .mascot-text {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .stats-section {
+            background: #e8f4fd;
+            border: 2px solid #4a90e2;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .stats-section h3 {
+            margin: 0 0 10px 0;
+            color: #0066cc;
+            font-size: 14px;
+            border-bottom: 1px solid #4a90e2;
+            padding-bottom: 5px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 11px;
+        }
+
+        .stat-label {
+            color: #333;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .stat-value.positive {
+            color: #00aa00;
+        }
+
+        .stat-value.blinking {
+            animation: blink 1s infinite;
+        }
+
+        .links-section {
+            background: #fff8dc;
+            border: 2px solid #daa520;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .links-section h3 {
+            margin: 0 0 10px 0;
+            color: #b8860b;
+            font-size: 14px;
+            border-bottom: 1px solid #daa520;
+            padding-bottom: 5px;
+        }
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .retro-link {
+            color: #0066cc;
+            text-decoration: underline;
+            font-size: 12px;
+            display: block;
+        }
+
+        .retro-link:hover {
+            color: #cc0000;
+            background: #ffff99;
+        }
+
+        .retro-link.blink {
+            animation: blink 1s infinite;
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .retro-footer {
+            background: #333;
+            color: #ccc;
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid #000;
+            font-size: 10px;
+        }
+
+        .footer-text {
+            margin-bottom: 10px;
+        }
+
+        .best-viewed {
+            font-style: italic;
+            color: #999;
+        }
+
+        .browser-statusbar {
+            background: linear-gradient(to bottom, #ece9d8 0%, #d4d0c8 100%);
+            border-top: 1px solid #999;
+            padding: 2px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            height: 20px;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .security-zone {
+            background: #ffff99;
+            border: 1px solid #999;
+            padding: 1px 4px;
+            font-size: 9px;
+        }
+
+        .progress-container {
+            width: 100px;
+            height: 10px;
+            border: 1px inset #d4d0c8;
+            background: white;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #4a90e2, #357abd);
+            width: 100%;
+        }
+
+        /* Enhanced styling for main window */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            background: white;
+            margin: -10px;
+            padding: 40px 20px;
+        }
+
+        .logo-area {
+            margin-bottom: 30px;
+        }
+
+        .logo-placeholder {
+            width: 200px;
+            height: 80px;
+            
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            color: white;
+  
+        }
+
+        .contract-area {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 30px;
+        }
+
+        .contract-input-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 10px 16px;
+            background: white;
+            box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+        }
+
+        .contract-input-container:hover {
+            box-shadow: 0 2px 8px 1px rgba(64,60,67,.24);
+        }
+
+        .contract-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #3c4043;
+            background: transparent;
+        }
+
+        .copy-button {
+            margin-left: 10px;
+            cursor: pointer;
+            color: #4285f4;
+            font-size: 12px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .copy-button:hover {
+            background-color: rgba(66, 133, 244, 0.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #3c4043;
+            cursor: pointer;
+            min-width: 54px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .action-button:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            background: #f1f3f4;
+            border: 1px solid #dadce0;
+        }
+
+        .ad-section {
+            border: 2px solid #ff0000;
+            background: linear-gradient(45deg, #ffff00, #ffff80);
+            padding: 8px;
+            text-align: center;
+            animation: blink 1s infinite;
+            border-radius: 4px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .ad-header {
+            background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+            background-size: 200% 200%;
+            animation: rainbow-bg 2s linear infinite;
+            padding: 6px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 black;
+            border-radius: 2px;
+            margin-bottom: 4px;
+            font-size: 10px;
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            text-align: center;
+            color: #70757a;
+            font-size: 10px;
+        }
+
+        /* Folder Window Styles */
+        .folder-window {
+            width: 500px;
+            height: 400px;
+        }
+
+        .folder-content {
+            background: white;
+            height: calc(100% - 25px);
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 90px);
+            gap: 10px;
+            overflow-y: auto;
+            border: 1px inset #d4d0c8;
+        }
+
+        .folder-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .folder-item:hover {
+            background: #e1e1ff;
+        }
+
+        .folder-item:active {
+            background: #316ac5;
+            color: white;
+        }
+
+        .folder-item img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border: 1px solid #999;
+            margin-bottom: 4px;
+        }
+
+        .folder-item span {
+            font-size: 9px;
+            text-align: center;
+            word-wrap: break-word;
+            max-width: 80px;
+        }
+
+        /* Image Viewer Styles */
+        .image-viewer {
+            width: 600px;
+            height: 500px;
+            background: #ece9d8;
+        }
+
+        .image-viewer-content {
+            padding: 10px;
+            background: #ece9d8;
+            height: calc(100% - 25px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-display {
+            flex: 1;
+            background: #000;
+            border: 2px inset #d4d0c8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-display img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .image-controls {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .nav-button {
+            width: 60px;
+            height: 25px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            border-radius: 2px;
+        }
+
+        .nav-button:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .nav-button:active {
+            border: 1px inset #d4d0c8;
+            background: linear-gradient(to bottom, #c7c7c7 0%, #e1e1e1 100%);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .image-info {
+            flex: 1;
+            margin: 0 10px;
+            font-size: 10px;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 3px;
+        }
+
+        .zoom-button {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border-radius: 2px;
+        }
+
+        .zoom-button:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .zoom-button:active {
+            border: 1px inset #d4d0c8;
+        }
+
+        /* Price ticker */
+        .price-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #000;
+            color: #00ff00;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .ticker-content {
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Windows Media Player Styles */
+        .media-player {
+            width: 600px;
+            height: 450px;
+            background: #ece9d8;
+        }
+
+        /* Phantom Wallet Fake Styles */
+        .phantom-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phantom-window {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            width: 320px;
+            height: 500px;
+            background: #2d2d30;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: none;
+            z-index: 2001;
+            overflow: hidden;
+        }
+
+        .phantom-header {
+            padding: 20px 20px 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #404040;
+        }
+
+        .phantom-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .phantom-ghost {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phantom-ghost::before {
+            content: '• •';
+            color: black;
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-top: -5px;
+        }
+
+        .phantom-content {
+            padding: 30px 20px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .phantom-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .phantom-password-input {
+            width: 100%;
+            height: 50px;
+            background: #1a1a1a;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            padding: 0 15px;
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+            font-family: monospace;
+        }
+
+        .phantom-forgot {
+            color: #8b8b8b;
+            font-size: 14px;
+            margin-bottom: 40px;
+            cursor: pointer;
+        }
+
+        .phantom-unlock-btn {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, #9945FF, #14F195);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .phantom-unlock-btn:hover {
+            opacity: 0.9;
+        }
+
+        .phantom-success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .phantom-checkmark {
+            width: 80px;
+            height: 80px;
+            background: #14F195;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px auto;
+            font-size: 40px;
+            color: black;
+        }
+
+        .phantom-sent-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .phantom-transaction-text {
+            color: #8b8b8b;
+            margin-bottom: 5px;
+        }
+
+        .phantom-address {
+            color: #9945FF;
+            font-family: monospace;
+            word-break: break-all;
+            margin-bottom: 20px;
+        }
+
+        .phantom-view-btn {
+            color: #9945FF;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        .phantom-close-btn {
+            width: 100%;
+            height: 50px;
+            background: #404040;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .connect-wallet-dialog {
+            position: fixed;
+            background: #ece9d8;
+            border: 2px outset #d4d0c8;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+            z-index: 1999;
+            width: 400px;
+            font-family: Tahoma, sans-serif;
+            font-size: 11px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .connect-wallet-titlebar {
+            height: 25px;
+            background: linear-gradient(to bottom, #0078ff 0%, #0054e3 100%);
+            color: white;
+            font-weight: bold;
+            padding: 0 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #0054e3;
+        }
+
+        .connect-wallet-content {
+            padding: 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .connect-wallet-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .connect-wallet-text {
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .connect-wallet-btn {
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 11px;
+            font-family: Tahoma, sans-serif;
+        }
+
+        .connect-wallet-btn:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .connect-wallet-btn:active {
+            border: 1px inset #d4d0c8;
+        }
+
+        .thanks-dialog {
+            position: fixed;
+            background: #ece9d8;
+            border: 2px outset #d4d0c8;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+            z-index: 2002;
+            width: 350px;
+            font-family: Tahoma, sans-serif;
+            font-size: 11px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .thanks-titlebar {
+            height: 25px;
+            background: linear-gradient(to bottom, #0078ff 0%, #0054e3 100%);
+            color: white;
+            font-weight: bold;
+            padding: 0 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #0054e3;
+        }
+
+        .thanks-content {
+            padding: 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .thanks-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px auto;
+            background: linear-gradient(45deg, #ff6b35, #f9ca24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+
+        .thanks-text {
+            color: #333;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        /* Chat Window Styles - FIXED */
+.chat-window {
+    width: 450px;
+    height: 650px; /* Increased height to give more space for input */
+    background: #ece9d8;
+}
+
+.chat-window-content {
+    background: #ece9d8;
+    height: calc(100% - 25px); /* Account for titlebar */
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent scrollbars on container */
+}
+
+.chat-iframe-container {
+    flex: 1;
+    border: 1px inset #d4d0c8;
+    background: white;
+    overflow: visible;
+    min-height: 400px; /* Ensure minimum height for input area */
+}
+
+.chat-iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+    min-height: 400px; /* Ensure iframe has enough height */
+}
+
+        .media-player-content {
+            background: #ece9d8;
+            height: calc(100% - 25px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-area {
+            flex: 1;
+            background: #000;
+            border: 2px inset #d4d0c8;
+            margin: 10px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .video-placeholder {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .wmp-controls {
+            background: linear-gradient(to bottom, #f0f0f0 0%, #e0e0e0 100%);
+            border-top: 1px solid #ccc;
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            min-height: 40px;
+        }
+
+        .wmp-button {
+            width: 30px;
+            height: 24px;
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border-radius: 2px;
+            color: #333;
+        }
+
+        .wmp-button:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .wmp-button:active {
+            border: 1px inset #d4d0c8;
+            background: linear-gradient(to bottom, #c7c7c7 0%, #e1e1e1 100%);
+        }
+
+        .wmp-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .wmp-progress-area {
+            flex: 1;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .wmp-progress-bar {
+            width: 100%;
+            height: 18px;
+            background: #f0f0f0;
+            border: 1px inset #d4d0c8;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .wmp-progress-fill {
+            height: 100%;
+            background: linear-gradient(to bottom, #316ac5 0%, #1a4f9e 100%);
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .wmp-time-display {
+            font-size: 10px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .wmp-volume-area {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .wmp-volume-bar {
+            width: 60px;
+            height: 16px;
+            background: #f0f0f0;
+            border: 1px inset #d4d0c8;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .wmp-volume-fill {
+            height: 100%;
+            background: linear-gradient(to bottom, #316ac5 0%, #1a4f9e 100%);
+            width: 70%;
+        }
+
+        .wmp-playlist {
+            background: white;
+            border: 1px inset #d4d0c8;
+            margin: 5px 10px 10px 10px;
+            height: 120px;
+            overflow-y: auto;
+            font-size: 11px;
+        }
+
+        .playlist-header {
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            padding: 3px 8px;
+            border-bottom: 1px solid #999;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .playlist-item {
+            padding: 4px 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .playlist-item:hover {
+            background: #e1e1ff;
+        }
+
+        .playlist-item.active {
+            background: #316ac5;
+            color: white;
+        }
+
+        .playlist-number {
+            width: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 10px;
+        }
+
+        .playlist-item.active .playlist-number {
+            color: white;
+        }
+
+        .wmp-status-bar {
+            background: linear-gradient(to bottom, #f0f0f0 0%, #e0e0e0 100%);
+            border-top: 1px solid #ccc;
+            padding: 3px 10px;
+            font-size: 10px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0) 50%,
+                rgba(0, 0, 0, 0.15) 50%
+            );
+            background-size: 100% 2px;
+        }
+
+        .crt-overlay::after {
+            content: "";
+            position: absolute;
+            top: -60px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                rgba(255, 255, 255, 0.15) 10%,
+                rgba(0, 0, 0, 0) 100%
+            );
+            opacity: 0.15;
+            animation: crt-scan 6s linear infinite;
+        }
+
+        @keyframes crt-scan {
+            0% {
+                top: -60px;
+            }
+            100% {
+                top: 100vh;
+            }
+        }
+
+        /* Antivirus Scanner Styles */
+        .antivirus-window {
+            width: 600px;
+            height: 450px;
+            background: #ece9d8;
+        }
+
+        .antivirus-content {
+            background: #ece9d8;
+            height: calc(100% - 25px);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .antivirus-header {
+            background: linear-gradient(to bottom, #ff0000, #cc0000);
+            color: white;
+            padding: 10px;
+            margin: -15px -15px 15px -15px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 2px solid #990000;
+        }
+
+        .scan-progress-area {
+            background: white;
+            border: 2px inset #d4d0c8;
+            padding: 20px;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .scan-status {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .scan-progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border: 1px inset #d4d0c8;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .scan-progress-fill {
+            height: 100%;
+            background: linear-gradient(to bottom, #ff0000, #cc0000);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .scan-results {
+            background: #fff8dc;
+            border: 1px solid #daa520;
+            padding: 10px;
+            font-size: 11px;
+            height: 150px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .threat-item {
+            color: #ff0000;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .scan-info {
+            color: #666;
+            margin: 2px 0;
+        }
+
+        .scan-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .scan-button {
+            background: linear-gradient(to bottom, #e1e1e1 0%, #c7c7c7 100%);
+            border: 1px outset #d4d0c8;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 11px;
+            font-family: Tahoma, sans-serif;
+        }
+
+        .scan-button:hover {
+            background: linear-gradient(to bottom, #e8e8e8 0%, #d0d0d0 100%);
+        }
+
+        .scan-button:active {
+            border: 1px inset #d4d0c8;
+        }
+
+        .scan-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+
+.retro-website {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.retro-main {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.retro-footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #222;
+    color: #fff;
+    font-size: 12px;
+    margin-top: 20px;
+    clear: both;
+}
+
+
+
+.retro-footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #222;
+    color: #fff;
+    font-size: 12px;
+    margin-top: 20px;
+    clear: both;
+    box-sizing: border-box;
+}
+
+
+
+.webpage-container,
+.retro-website,
+.retro-header,
+.retro-main,
+.header-banner,
+.scrolling-text,
+.right-column,
+.left-column {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box;
+}
+
+.retro-main {
+  padding: 0 20px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+</style>
+<script src="https://iframe.chat/scripts/main.min.js"></script>
+<link rel="icon" type="image/gif" href="favicon.gif">
+</head>
+<body>
+<div class="crt-overlay"></div>
+<!-- Price ticker -->
+<div class="price-ticker">
+<div class="ticker-content">
+            🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙 🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙 🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙 🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙
+        </div>
+</div>
+<div class="desktop">
+<!-- Desktop Icons - All aligned in a column on the left -->
+<div class="desktop-icon" onclick="openMainWindow()" style="top: 50px;">
+<img alt="Arab Funny Coin" src="icons/explorer.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>Halal Explorer 6</span>
+</div>
+<div class="desktop-icon" onclick="openFolder()" style="top: 140px;">
+<img alt="Arab Funny Coin" src="icons/folder.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>HARAM DO NOT OPEN</span>
+</div>
+<div class="desktop-icon" onclick="showConnectWalletDialog()" style="top: 230px;">
+<img alt="Arab Funny Coin" src="icons/smiley.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>drainer.exe</span>
+</div>
+<div class="desktop-icon" onclick="openMediaPlayer()" style="top: 320px;">
+<img alt="Arab Funny Coin" src="icons/player.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>Media Player</span>
+</div>
+<div class="desktop-icon" onclick="openChatWindow()" style="top: 410px;">
+<img alt="Arab Funny Coin" src="icons/messages.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>Live Chat</span>
+</div>
+<!-- New placeholder icons -->
+<div class="desktop-icon" onclick="showErrorDialog('placeholder1')" style="top: 500px;">
+<img alt="Arab Funny Coin" src="icons/sims.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>Sims 3 Pets</span>
+</div>
+<div class="desktop-icon" onclick="showErrorDialog('placeholder2')" style="top: 590px;">
+<img alt="Arab Funny Coin" src="icons/unreal.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>Unreal Tournament</span>
+</div>
+<div class="desktop-icon" onclick="showErrorDialog('placeholder3')" style="top: 680px;">
+<img alt="Arab Funny Coin" src="icons/sonic.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>Sonic</span>
+</div>
+<div class="desktop-icon" onclick="runAntiSVIRUS()" style="top: 770px;">
+<img alt="Arab Funny Coin" src="icons/mcafee.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
+<span>Haram Remover</span>
+</div>
+</div>
+<!-- Main Browser Window -->
+<div class="window hidden" id="mainWindow" style="top: 50px; left: 50%; transform: translateX(-50%); width: 1000px; height: 700px;">
+<div class="window-titlebar">
+<span>🌐 Internet Explorer 6 - 404Arab Official Website</span>
+<div class="window-controls">
+<div class="window-control">_</div>
+<div class="window-control">□</div>
+<div class="window-control close" onclick="closeWindow('mainWindow')">×</div>
+</div>
+</div>
+<!-- Browser Interface -->
+<div class="browser-interface">
+<!-- Menu Bar -->
+<div class="browser-menubar">
+<span class="menu-item" onclick="showNotification('File menu - Coming soon!')">File</span>
+<span class="menu-item" onclick="showNotification('Edit menu - Coming soon!')">Edit</span>
+<span class="menu-item" onclick="showNotification('View menu - Coming soon!')">View</span>
+<span class="menu-item" onclick="showNotification('Favorites menu - Coming soon!')">Favorites</span>
+<span class="menu-item" onclick="showNotification('Tools menu - Coming soon!')">Tools</span>
+<span class="menu-item" onclick="showNotification('Help menu - Coming soon!')">Help</span>
+</div>
+<!-- Navigation Bar -->
+<div class="browser-navbar">
+<div class="nav-buttons">
+<button class="nav-btn" onclick="showNotification('Going back in time...')" title="Back">←</button>
+<button class="nav-btn" onclick="showNotification('Going forward to the future...')" title="Forward">→</button>
+<button class="nav-btn" onclick="showNotification('Stopping all downloads...')" title="Stop">⊠</button>
+<button class="nav-btn" onclick="refreshBrowser()" title="Refresh">⟲</button>
+<button class="nav-btn" onclick="showNotification('Going home to MSN.com...')" title="Home">🏠</button>
+</div>
+<div class="address-bar-container">
+<span class="address-label">Address:</span>
+<input class="address-bar" onclick="this.select()" readonly="" type="text" value="http://www.404arab.top"/>
+<button class="go-btn" onclick="showNotification('Already at this page!')">Go</button>
+</div>
+</div>
+<!-- Favorites Bar -->
+<div class="favorites-bar">
+<span class="favorites-label">Links:</span>
+<a class="favorite-link" href="https://x.com/404Arab" onclick="showNotification('MSN Hotmail - 0 new messages')">📧 Hotmail</a>
+<a class="favorite-link" href="index.html#" onclick="showNotification('Napster is currently offline')">🎵 Napster</a>
+<a class="favorite-link" href="index.html#" onclick="showNotification('MySpace: A place for friends (and viruses)')">👥 MySpace</a>
+<a class="favorite-link" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" onclick="showConnectWalletDialog()">💰 FREE MONEY!</a>
+</div>
+<!-- Browser Content Area -->
+<div class="browser-content">
+<div class="webpage-container">
+<div class="retro-website">
+<div class="retro-header">
+<div class="header-banner">
+<div class="spinning-logo">💰</div>
+<div class="site-title">
+<h1>404Arab</h1>
+<div class="subtitle">🚀 TO THE MOON HABIBI! 🌙</div>
+</div>
+<div class="visitor-counter">
+              Visitor #<span class="counter-digits">420,692</span>
+</div>
+</div>
+<div class="scrolling-text">
+<marquee direction="left" scrollamount="3">
+              🔥 FULL FUNNY PUNJABI MOVIE 2017 🔥 FREE DOWNLOAD 🔥 NOT FINANCIAL ADVICE 🔥 HOTTEST SAUDI COIN 2020 🔥 HALAL TRADING TIPS 🔥
+            </marquee>
+</div>
+</div>
+<div class="retro-main" style="display: flex; gap: 20px; flex-wrap: wrap;">
+<div class="left-column" style="flex: 1; min-width: 300px;">
+<div class="retro-section">
+<h2 class="section-title">📜 Contract Information</h2>
+<div class="contract-box">
+<div class="contract-label">Smart Contract Address:</div>
+<div class="contract-address" onclick="copyContract()">
+                  3WfpTHGKkfXag5SicADtGPnwvvcpm8saE3hWvAychmvS
+                  <span class="click-to-copy">(Click to copy)</span>
+</div>
+</div>
+</div>
+<div class="retro-section">
+<h2 class="section-title">💹 Trading</h2>
+<div class="trading-buttons">
+<a class="retro-button buy-button" href="https://jup.ag/swap?sell=So11111111111111111111111111111111111111112&buy=3WfpTHGKkfXag5SicADtGPnwvvcpm8saE3hWvAychmvS" target="_blank">🪙 Buy SVIRUS</a>
+<a class="retro-button chart-button" href="https://dexscreener.com/solana/h5svwe6y8d26cerzzwj4nggezw2evnsrtfj777propkc" target="_blank">📊 View Chart</a>
+</div>
+</div>
+<div class="retro-section">
+<h2 class="section-title">📊 Tokenomics</h2>
+<img alt="Tokenomics Chart" src="images/GvBN57PXgAAj8Wk.jpg" style="width: 100%; max-width: 100%; border: 2px solid #000;"/>
+</div>
+
+
+
+</div>
+<div class="right-column" style="flex: 1; min-width: 300px;">
+<div class="retro-section">
+<h2 class="section-title">🔗 Important Links</h2>
+<div class="link-list">
+<a class="retro-link" href="https://x.com/404Arab" target="_blank">🐦 Twitter</a>
+<a class="retro-link" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" target="_blank">🤖 Pump.fun</a>
+<a class="retro-link" href="hhttps://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" target="_blank">❓ Wiki</a>
+<a class="retro-link blink" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" onclick="showConnectWalletDialog()">💰 FREE AIRDROP!</a>
+</div>
+</div>
+
+
+<div class="retro-section">
+<h2 class="section-title">📰 Latest News</h2>
+<div class="news-item">
+<div class="news-date">Today, 4:20 PM</div>
+<div class="news-title">404Arab hits new ATH!</div>
+<div class="news-text">Mashallah brothers! We just hit 5k MCAP! Inshallah we're going to the moon! 🚀</div>
+</div>
+<div class="news-item">
+<div class="news-date">Yesterday, 6:66 PM</div>
+<div class="news-title">Partnership with Camel Exchange announced!</div>
+<div class="news-text">Wallahi this is huge news! Now you can trade SVIRUS with real camels! 🐪</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Folder Window -->
+<div class="window folder-window hidden" id="folderWindow" style="top: 100px; left: 200px; z-index: 200;">
+<div class="window-titlebar">
+<span>📁 Private DO NOT OPEN</span>
+<div class="window-controls">
+<div class="window-control close" onclick="closeWindow('folderWindow')">×</div>
+</div>
+</div>
+<div class="folder-content" id="folderContent">
+<!-- Example images - REPLACE WITH YOUR OWN IMAGE URLS -->
+<div class="folder-item" onclick="openImageViewer(0)">
+<img alt="Arab Funny Meme 1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKXp9wd1hQ1TACnLWIRMkQgd0W80dAeJGZVQ&amp;s"/>
+<span>Wife 1</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(1)">
+<img alt="Arab Funny Meme 2" src="https://pbs.twimg.com/media/GovM9AQWMAA39Sf?format=jpg&amp;name=large"/>
+<span>Wife 2</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(2)">
+<img alt="Arab Funny Meme 3" src="https://pbs.twimg.com/media/GhnEhZmbcAAyjhU.jpg"/>
+<span>Wife 3</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(3)">
+<img alt="Arab Funny Meme 4" src="https://pbs.twimg.com/media/FmsujVmWYAwEbGO.jpg"/>
+<span>Wife 4</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(4)">
+<img alt="Arab Funny Meme 5" src="https://static10.tgstat.ru/channels/_0/4f/4ff780779bc06a3982828305c9ffeb74.jpg"/>
+<span>Wife 5</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(5)">
+<img alt="Arab Funny Meme 6" src="https://pbs.twimg.com/media/EPKWEvSW4AIw0p6.jpg"/>
+<span>Wife 6</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(5)">
+<img alt="Arab Funny Meme 6" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6efc2377-b08b-48b6-b037-792e70e86582/dhuxe79-0b269338-0a8e-4311-b63f-095735d71fdd.jpg/v1/fill/w_320,h_320,q_75,strp/untitled_by_celal74500_dhuxe79-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MzIwIiwicGF0aCI6IlwvZlwvNmVmYzIzNzctYjA4Yi00OGI2LWIwMzctNzkyZTcwZTg2NTgyXC9kaHV4ZTc5LTBiMjY5MzM4LTBhOGUtNDMxMS1iNjNmLTA5NTczNWQ3MWZkZC5qcGciLCJ3aWR0aCI6Ijw9MzIwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.cHzIYXaYYywyQzYH2AL6Tuc95ox4TGgye1ExdaH-oJI"/>
+<span>Wife 7</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(5)">
+<img alt="Arab Funny Meme 6" src="https://image.cdn2.seaart.me/temp-convert-webp/highwebp/2025-05-25/d0pbdgde878c73chs0pg-1/3d4a42530a14f5eb20d7ac4ad93a310b_low.webp"/>
+<span>Wife 8</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(5)">
+<img alt="Arab Funny Meme 6" src="https://pbs.twimg.com/media/GV9rTMjWcAAhHfE.jpg"/>
+<span>Wife 9</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(5)">
+<img alt="Arab Funny Meme 6" src="https://preview.redd.it/teen-yemeni-hijabi-feet-and-soles-v0-f8bjeoil1f9e1.jpg?width=495&amp;format=pjpg&amp;auto=webp&amp;s=b57bf3559128f74eb9362b17a26dcc4096d95c68"/>
+<span>Wife 10</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(5)">
+<img alt="Arab Funny Meme 6" src="https://preview.redd.it/rfc5sysp4he71.jpg?width=640&amp;crop=smart&amp;auto=webp&amp;s=7edf408f2b05db8b874a2ae7d310289b12d702cd"/>
+<span>Wife 11</span>
+</div>
+<div class="folder-item" onclick="openImageViewer(5)">
+<img alt="Arab Funny Meme 6" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a25093c9-63b9-4c54-9649-10d7ade9e9a7/djs37sh-3634a27b-f84d-43a0-a18c-15e3796c3131.jpg/v1/fit/w_414,h_552,q_70,strp/hijab_soles_close_up_by_feetarchive99_djs37sh-414w.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTcwNyIsInBhdGgiOiJcL2ZcL2EyNTA5M2M5LTYzYjktNGM1NC05NjQ5LTEwZDdhZGU5ZTlhN1wvZGpzMzdzaC0zNjM0YTI3Yi1mODRkLTQzYTAtYTE4Yy0xNWUzNzk2YzMxMzEuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Z2hKdU2eB-eZSdZoH6xA-00iw3auH0UYFhD2588MEcA"/>
+<span>Wife 12</span>
+</div>
+<!-- Instructions -->
+</div>
+</div>
+<!-- Image Viewer Window -->
+<div class="window image-viewer hidden" id="imageViewer" style="top: 60px; left: 300px; z-index: 300;">
+<div class="window-titlebar">
+<span id="imageViewerTitle">🖼️ Image Viewer</span>
+<div class="window-controls">
+<div class="window-control close" onclick="closeWindow('imageViewer')">×</div>
+</div>
+</div>
+<div class="image-viewer-content">
+<div class="image-display" id="imageDisplay">
+<img alt="" id="viewerImage" src="index.html" style="transform: scale(1);"/>
+</div>
+<div class="image-controls">
+<button class="nav-button" id="prevButton" onclick="previousImage()">◀ Previous</button>
+<button class="nav-button" id="nextButton" onclick="nextImage()">Next ▶</button>
+<div class="image-info" id="imageInfo">
+                    Image 1 of 6 - habibi_meme.jpg
+                </div>
+<div class="zoom-controls">
+<button class="zoom-button" onclick="zoomOut()">−</button>
+<button class="zoom-button" onclick="resetZoom()">⚪</button>
+<button class="zoom-button" onclick="zoomIn()">+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Windows Media Player -->
+<div class="window media-player hidden" id="mediaPlayer" style="top: 70px; left: 250px; z-index: 400;">
+<div class="window-titlebar">
+<span id="mediaPlayerTitle">🎵 Windows Media Player</span>
+<div class="window-controls">
+<div class="window-control close" onclick="closeWindow('mediaPlayer')">×</div>
+</div>
+</div>
+<div class="media-player-content">
+<!-- Video Display Area -->
+<div class="video-area">
+<video class="video-element" controls="false" id="videoElement">
+<!-- ⭐ INSERT YOUR VIDEO SOURCES HERE ⭐ -->
+<!-- Example format:
+                    <source src="path/to/your/video.mp4" type="video/mp4">
+                    <source src="path/to/your/video.webm" type="video/webm">
+                    -->
+</video>
+<div class="video-placeholder" id="videoPlaceholder">
+                    No video loaded<br/>
+<small>Insert video sources in HTML</small>
+</div>
+</div>
+<!-- Media Controls -->
+<div class="wmp-controls">
+<!-- Transport Controls -->
+<div class="wmp-button" onclick="mediaStop()" title="Stop">⏹</div>
+<div class="wmp-button" id="btnPrevious" onclick="mediaPrevious()" title="Previous">⏮</div>
+<div class="wmp-button" id="btnPlayPause" onclick="mediaPlayPause()" title="Play/Pause">▶</div>
+<div class="wmp-button" id="btnNext" onclick="mediaNext()" title="Next">⏭</div>
+<!-- Progress Area -->
+<div class="wmp-progress-area">
+<div class="wmp-progress-bar" id="progressBar" onclick="seekVideo(event)">
+<div class="wmp-progress-fill" id="progressFill"></div>
+</div>
+<div class="wmp-time-display">
+<span id="currentTime">00:00</span>
+<span id="totalTime">00:00</span>
+</div>
+</div>
+<!-- Volume Controls -->
+<div class="wmp-volume-area">
+<div class="wmp-button" id="btnMute" onclick="toggleMute()" title="Mute">🔊</div>
+<div class="wmp-volume-bar" id="volumeBar" onclick="setVolume(event)">
+<div class="wmp-volume-fill" id="volumeFill"></div>
+</div>
+</div>
+<!-- Additional Controls (Visual Only) -->
+<div class="wmp-button" style="opacity: 0.5;" title="Shuffle">🔀</div>
+<div class="wmp-button" style="opacity: 0.5;" title="Repeat">🔁</div>
+<div class="wmp-button" style="opacity: 0.5;" title="Visualizations">📊</div>
+</div>
+<!-- Playlist -->
+<div class="wmp-playlist">
+<div class="playlist-header">📋 Playlist</div>
+<!-- ⭐ CUSTOMIZE YOUR PLAYLIST HERE ⭐ -->
+<div class="playlist-item active" onclick="loadVideo(0)">
+<span class="playlist-number">1.</span>
+<span>SVIRUS Compilation</span>
+</div>
+<div class="playlist-item" onclick="loadVideo(1)">
+<span class="playlist-number">2.</span>
+<span>مهمة ناجحة يا رجل القضيب😼😼😼</span>
+</div>
+<div class="playlist-item" onclick="loadVideo(2)">
+<span class="playlist-number">3.</span>
+<span>BASED KHOMEINI 😯😬 🥶🇮🇷🇮🇷🇮🇷🇮🇷 #osamabinladen #iran</span>
+</div>
+<div class="playlist-item" onclick="loadVideo(3)">
+<span class="playlist-number">4.</span>
+<span>Inshallah we will destroy the evil eye</span>
+</div>
+<!-- Add more playlist items here -->
+</div>
+<!-- Status Bar -->
+<div class="wmp-status-bar">
+<span id="mediaStatus">Ready</span>
+<span id="mediaInfo">Select a video to play</span>
+</div>
+</div>
+</div>
+<!-- Antivirus Scanner Window -->
+<div class="window antivirus-window hidden" id="antivirusWindow" style="top: 100px; left: 150px; z-index: 600;">
+<div class="window-titlebar">
+<span>🛡️ AVG Antivirus - System Scan</span>
+<div class="window-controls">
+<div class="window-control close" onclick="closeWindow('antivirusWindow')">×</div>
+</div>
+</div>
+<div class="antivirus-content">
+<div class="antivirus-header">
+                🚨 CRITICAL SECURITY ALERT 🚨
+            </div>
+<div class="scan-progress-area">
+<div class="scan-status" id="scanStatus">Starting system scan...</div>
+<div class="scan-progress-bar">
+<div class="scan-progress-fill" id="scanProgressFill"></div>
+</div>
+<div class="scan-results" id="scanResults">
+<div class="scan-info">Initializing AVG Antivirus Engine...</div>
+<div class="scan-info">Loading virus definitions...</div>
+<div class="scan-info">Starting deep system scan...</div>
+</div>
+</div>
+<div class="scan-buttons">
+<button class="scan-button" id="startScanBtn" onclick="startScan()">Start Scan</button>
+<button class="scan-button" disabled="" id="stopScanBtn" onclick="stopScan()">Stop Scan</button>
+<button class="scan-button" onclick="closeWindow('antivirusWindow')">Close</button>
+</div>
+</div>
+</div>
+<!-- Habibi Assistant -->
+<div class="habibi" id="habibi">
+<div class="habibi-image" onclick="showHabibiBubble()">
+<img alt="Habibi" src="https://media.tenor.com/xx3tXJ9X7RkAAAAj/arab-flying.gif"/>
+</div>
+</div>
+<!-- Speech Bubble -->
+<div class="speech-bubble" id="speechBubble">
+<div id="habibiText">Ahlan wa sahlan, habibi! Welcome to the best memecoin in the Middle East! 🇸🇦</div>
+</div>
+<!-- Taskbar -->
+<div class="taskbar">
+<div class="start-button" onclick="showStartMenu()">
+    <img src="logo.png" alt="" width="30px">
+<span>Start</span>
+</div>
+<div style="flex: 1;"></div>
+<div id="clock" style="color: white; font-size: 11px; margin-right: 10px;"></div>
+</div>
+<!-- Connect Wallet Dialog -->
+<div class="connect-wallet-dialog" id="connectWalletDialog" style="display: none;">
+<div class="connect-wallet-titlebar">
+<span>🎰 FREE CRYPTO GIVEAWAY! 🎰</span>
+<div class="window-control close" onclick="closeConnectWalletDialog()">×</div>
+</div>
+<div class="connect-wallet-content">
+<div class="connect-wallet-icon">💰</div>
+<div class="connect-wallet-text">
+<strong>CONGRATULATIONS!</strong><br/>
+                You've been selected for our exclusive crypto airdrop!<br/><br/>
+                Connect your wallet to claim your <strong>1000 FREE TOKENS</strong>!<br/>
+<small>(Limited time offer - Act now!)</small>
+</div>
+<button class="connect-wallet-btn" onclick="startPhantomPrank()">Connect Wallet 🚀</button>
+</div>
+</div>
+<!-- Phantom Wallet Fake Login -->
+<div class="phantom-window" id="phantomWindow">
+<div class="phantom-content" id="phantomLogin">
+<div class="phantom-title">Enter your password</div>
+<input class="phantom-password-input" id="phantomPasswordInput" readonly="" type="password" value="••••••••••••••••"/>
+<div class="phantom-forgot">Forgot password</div>
+<button class="phantom-unlock-btn" onclick="unlockPhantom()">Unlock</button>
+</div>
+<div class="phantom-success" id="phantomSuccess">
+<div class="phantom-checkmark">✓</div>
+<div class="phantom-sent-title">Sent!</div>
+<div class="phantom-transaction-text">12 SOL was successfully sent to</div>
+<div class="phantom-address">25c4...kFn7</div>
+<button class="phantom-view-btn">View transaction</button>
+<button class="phantom-close-btn" onclick="closePhantomAndShowThanks()">Close</button>
+</div>
+</div>
+<!-- Thanks Dialog -->
+<div class="thanks-dialog" id="thanksDialog">
+<div class="thanks-titlebar">
+<span>📧 Transaction Complete</span>
+<div class="window-control close" onclick="closeThanksDialog()">×</div>
+</div>
+<div class="thanks-content">
+<div class="thanks-image">😈</div>
+<div class="thanks-text">
+<strong>Thanks for the donation, habibi!</strong><br/><br/>
+                Your "free crypto" has been successfully transferred to our wallet.<br/><br/>
+<small>SVIRUS Team</small>
+</div>
+<button class="connect-wallet-btn" onclick="closeThanksDialog()">I've Been Pranked! 😅</button>
+</div>
+</div>
+<!-- Chat Window - FIXED VERSION -->
+<div class="window chat-window hidden" id="chatWindow" style="top: 100px; left: 100px; z-index: 500;">
+<div class="window-titlebar">
+<span>💬 Live Chat</span>
+<div class="window-controls">
+<div class="window-control close" onclick="closeWindow('chatWindow')">×</div>
+</div>
+</div>
+<div class="chat-window-content">
+<div class="chat-iframe-container">
+<iframe frameborder="0" id="chattable" src="https://iframe.chat/embed?chat=42980989"></iframe>
+</div>
+</div>
+</div>
+<script>
+        // ===== POPUP AD CONFIGURATION =====
+        // 🎯 CUSTOMIZE YOUR POPUP ADS HERE!
+        
+        const POPUP_CONFIG = {
+            // Global Settings
+            enabled: true,                    // Enable/disable all popups
+            maxPopups: 5,                    // Maximum simultaneous popups
+            minInterval: 100,               // Minimum time between popups (ms)
+            maxInterval: 1000,               // Maximum time between popups (ms)
+            autoCloseTime: 10000,             // Auto-close time (ms), set to 0 to disable
+            urgentShakeChance: 1,          // Probability of urgent shaking (0-1)
+            
+            // Positioning
+            randomPosition: true,            // Random position vs fixed positions
+            avoidOverlap: true,             // Try to avoid overlapping existing popups
+            margin: 50,                     // Margin from screen edges
+        };
+
+        // 🖼️ YOUR CUSTOM IMAGE POPUP ADS - ADD YOUR IMAGE URLS HERE!
+        // Each popup will show ONLY the image with a title bar and close button
+        // Instructions:
+        // 1. Replace 'image' URLs with your own images
+        // 2. Set 'width' and 'height' to match your image dimensions (optional)
+        // 3. Adjust 'title' text (shown in the top bar)
+        // 4. Set 'urgent: true' for shaking effect
+        // 5. Adjust 'weight' (higher = appears more often)
+        
+        const POPUP_ADS = [
+            {
+                title: '🎰 MEGA JACKPOT WINNER! 🎰',
+                image: 'images/32.jpeg', // Replace with your image URL
+                width: 400, // Optional: set custom width
+                height: 505, // Optional: set custom height
+                urgent: true,
+                weight: 1
+            },
+             {
+                title: '🎰 MEGA JACKPOT WINNER! 🎰',
+                image: 'images/33.webp', // Replace with your image URL
+                width: 350, // Optional: set custom width
+                height: 505, // Optional: set custom height
+                urgent: true,
+                weight: 1
+            }, 
+            {
+                title: '🎰 MEGA JACKPOT WINNER! 🎰',
+                image: 'images/34.webp', // Replace with your image URL
+                width: 505, // Optional: set custom width
+                height: 505, // Optional: set custom height
+                urgent: true,
+                weight: 1
+            },
+            {
+                title: '🔥 HOT CRYPTO SINGLES! 🔥',
+                image: 'images/crypto singles.gif', // Replace with your image URL
+                width: 350,
+                height: 505,
+                urgent: false,
+                weight: 1
+            },
+            {
+                title: '⚠️ SVIRUS DETECTED! ⚠️',
+                image: 'images/ad1.png', // Replace with your image URL
+                width: 500,
+                height: 505,
+                urgent: true,
+                weight: 1
+            },
+            {
+                title: '✅RMINATOR 2 FREE DOWNLOAD URD 2006',
+                image: 'images/TERMINATOR.gif', // Replace with your image URL
+                width: 505,
+                height: 360,
+                urgent: false,
+                weight: 1
+            },
+            {
+                title: '🚨 FBI WARNING! 🚨',
+                image: 'images/atheist.gif', // Replace with your image URL
+                width: 350,
+                height: 470,
+                urgent: true,
+                weight: 1
+            },
+            {
+                title: '🎮 FREE GAMES! 🎮',
+                image: 'images/ad4.png', // Replace with your image URL
+                width: 280,
+                height: 400,
+                urgent: false,
+                weight: 1
+            },
+            {
+                title: '🏆 CONTEST WINNER! 🏆',
+                image: 'images/ad5.png', // Replace with your image URL
+                width: 370,
+                height: 510,
+                urgent: false,
+                weight: 2
+            },
+            {
+                title: 'Skype - Allah Calling',
+                image: 'images/skype.png', // Replace with your image URL
+                width: 666,
+                height: 171,
+                urgent: true,
+                weight: 1
+            },
+            {
+                title: 'تم القبض على سبونجبوب في المسجد مع زنجي ',
+                image: 'images/jlbnfmbx95af1.png', // Replace with your image URL
+                width: 500,
+                height: 500,
+                urgent: false,
+                weight: 2
+            },
+            {
+                title: 'أنا أحب الفتيات اليونانيات الصغيرات 😂😂😂',
+                image: 'images/D542fwie9t231.webp', // Replace with your image URL
+                width: 370,
+                height: 510,
+                urgent: false,
+                weight: 2
+            },
+            {
+                title: '🏆😠😠😡😡 EPIC PUNJABI TROLL 240p',
+                image: 'images/Artworks-dkV2DsjCeLxNVH8g-HLzvPw-t500x500.webp', // Replace with your image URL
+                width: 500,
+                height: 500,
+                urgent: false,
+                weight: 2
+            },
+        ];
+
+        // ===== POPUP SYSTEM CODE =====
+        let activePopups = 0;
+        let popupTimeouts = [];
+        let usedPositions = [];
+
+        // Weighted random selection
+        function getRandomAd() {
+            playRandomPopupSound();
+            const totalWeight = POPUP_ADS.reduce((sum, ad) => sum + (ad.weight || 1), 0);
+            let random = Math.random() * totalWeight;
+            
+            for (const ad of POPUP_ADS) {
+                random -= (ad.weight || 1);
+                if (random <= 0) return ad;
+            }
+            return POPUP_ADS[0];
+        }
+
+        // Get position that doesn't overlap
+        function getPopupPosition(width, height) {
+            const margin = POPUP_CONFIG.margin;
+            const maxWidth = window.innerWidth - width - margin;
+            const maxHeight = window.innerHeight - height - margin;
+            
+            if (!POPUP_CONFIG.randomPosition) {
+                return {
+                    x: Math.random() * maxWidth + margin,
+                    y: Math.random() * maxHeight + margin
+                };
+            }
+
+            // Try to find non-overlapping position
+            for (let attempts = 0; attempts < 10; attempts++) {
+                const x = Math.random() * maxWidth + margin;
+                const y = Math.random() * maxHeight + margin;
+                
+                if (!POPUP_CONFIG.avoidOverlap) return { x, y };
+                
+                let overlaps = false;
+                for (const pos of usedPositions) {
+                    if (x < pos.x + pos.width && x + width > pos.x &&
+                        y < pos.y + pos.height && y + height > pos.y) {
+                        overlaps = true;
+                        break;
+                    }
+                }
+                
+                if (!overlaps) {
+                    usedPositions.push({ x, y, width, height });
+                    return { x, y };
+                }
+            }
+            
+            // Fallback to random if can't find non-overlapping
+            return {
+                x: Math.random() * maxWidth + margin,
+                y: Math.random() * maxHeight + margin
+            };
+        }
+
+        // Create popup element
+        function createPopup(adData) {
+            if (!POPUP_CONFIG.enabled || activePopups >= POPUP_CONFIG.maxPopups) return;
+            
+            const popup = document.createElement('div');
+            popup.className = 'classic-popup image-popup';
+            
+            // Apply urgent styling
+            if (adData.urgent && Math.random() < POPUP_CONFIG.urgentShakeChance) {
+                popup.classList.add('popup-urgent');
+            }
+            
+            // Use specified dimensions or defaults
+            const width = adData.width || 400;
+            const height = adData.height || 300;
+            const titlebarHeight = 25;
+            
+            popup.innerHTML = createImagePopupContent(adData);
+            
+            // Position popup
+            const position = getPopupPosition(width, height + titlebarHeight);
+            popup.style.left = position.x + 'px';
+            popup.style.top = position.y + 'px';
+            popup.style.width = width + 'px';
+            popup.style.height = (height + titlebarHeight) + 'px';
+            
+            // Add close button event listener
+            const closeButton = popup.querySelector('.popup-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removePopup(popup);
+                });
+            }
+            
+            // Make the image clickable for ad interaction
+            const imageElement = popup.querySelector('.popup-image');
+            if (imageElement) {
+                imageElement.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleAdClick(adData, 'Image Clicked');
+                    removePopup(popup);
+                });
+            }
+            
+            document.body.appendChild(popup);
+            activePopups++;
+            
+            // Auto-close if configured
+            if (POPUP_CONFIG.autoCloseTime > 0) {
+                setTimeout(() => removePopup(popup), POPUP_CONFIG.autoCloseTime);
+            }
+            
+            return popup;
+        }
+
+        function createImagePopupContent(ad) {
+            const width = ad.width || 400;
+            const height = ad.height || 300;
+            
+            return `
+                <div class="popup-titlebar">
+                    <span>${ad.title}</span>
+                    <div class="popup-close">×</div>
+                </div>
+                <div class="popup-image-container" style="width: ${width}px; height: ${height}px;">
+                    ${ad.image ? 
+                        `<img src="https://arabfunny.com/${ad.image}" alt="${ad.title}" class="popup-image" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" />` :
+                        `<div class="popup-image placeholder-image" style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 48px; cursor: pointer;">🖼️</div>`
+                    }
+                </div>
+            `;
+        }
+
+        function handleAdClick(adData, clickType) {
+            // Add your custom click handling here
+            showNotification(`You clicked on "${adData.title}" - Starting download Breaking Bad Urdu 2017 FREE DOWNLOAD`);
+            
+            // You can add specific actions based on the ad title
+            switch (adData.title) {
+                case '🎰 MEGA JACKPOT WINNER! 🎰':
+                    showConnectWalletDialog();
+                    break;
+                case '⚠️ SVIRUS DETECTED! ⚠️':
+                    runAntivirus();
+                    break;
+                // Add more custom actions here
+            }
+        }
+
+        function removePopup(popup) {
+            if (popup && popup.parentElement) {
+                // Remove from used positions
+                const rect = popup.getBoundingClientRect();
+                usedPositions = usedPositions.filter(pos => 
+                    !(pos.x <= rect.left && pos.y <= rect.top && 
+                      pos.x + pos.width >= rect.right && pos.y + pos.height >= rect.bottom)
+                );
+                
+                popup.remove();
+                activePopups = Math.max(0, activePopups - 1);
+            }
+        }
+
+        function scheduleNextPopup() {
+            if (!POPUP_CONFIG.enabled) return;
+            
+            const delay = POPUP_CONFIG.minInterval + 
+                         Math.random() * (POPUP_CONFIG.maxInterval - POPUP_CONFIG.minInterval);
+            
+            const timeoutId = setTimeout(() => {
+                if (activePopups < POPUP_CONFIG.maxPopups) {
+                    const adData = getRandomAd();
+                    createPopup(adData);
+                }
+                scheduleNextPopup();
+            }, delay);
+            
+            popupTimeouts.push(timeoutId);
+        }
+
+        function stopAllPopups() {
+            POPUP_CONFIG.enabled = false;
+            popupTimeouts.forEach(id => clearTimeout(id));
+            popupTimeouts = [];
+            
+            // Remove existing popups
+            document.querySelectorAll('.classic-popup').forEach(popup => removePopup(popup));
+        }
+
+        function startPopupSystem() {
+            POPUP_CONFIG.enabled = true;
+            scheduleNextPopup();
+        }
+
+        // ===== ANTIVIRUS FUNCTIONALITY =====
+        let isScanning = false;
+        let scanInterval;
+        let scanProgress = 0;
+        
+        const virusNames = [
+            'Trojan.Generic.KDF.24601337',
+            'Worm.Win32.Conficker.B',
+            'Backdoor.Agent.UAE',
+            'Adware.BrowserHijacker.69',
+            'Spyware.Keylogger.Stealer',
+            'Ransomware.WannaCry.Variant',
+            'Rootkit.Boot.Sector.X',
+            'Malware.Suspicious.Activity',
+            'PUP.Optional.Toolbar.420',
+            'Exploit.CVE-2024-ARAB',
+            'Virus.Win32.Sality.Gen',
+            'Trojan.Banker.Zbot.AAA',
+            'Worm.AutoRun.Dorkbot.E',
+            'Backdoor.RAT.DarkComet',
+            'Adware.Agent.OpenCandy',
+            'Spyware.Password.Stealer',
+            'Malware.Obfuscated.ABC'
+        ];
+
+        const scanMessages = [
+            'Scanning system files...',
+            'Checking registry entries...',
+            'Analyzing running processes...',
+            'Scanning network connections...',
+            'Checking startup programs...',
+            'Analyzing browser extensions...',
+            'Scanning temporary files...',
+            'Checking email attachments...',
+            'Analyzing downloaded files...',
+            'Scanning memory for threats...',
+            'Checking system vulnerabilities...',
+            'Analyzing suspicious activities...'
+        ];
+
+        function runAntivirus() {
+            const antivirusWindow = document.getElementById('antivirusWindow');
+            if (antivirusWindow) {
+                antivirusWindow.classList.remove('hidden');
+                antivirusWindow.style.display = 'block';
+                antivirusWindow.style.visibility = 'visible';
+                antivirusWindow.style.position = 'fixed';
+                antivirusWindow.style.top = '100px';
+                antivirusWindow.style.left = '150px';
+                bringWindowToFront(antivirusWindow);
+                setupWindowClickHandlers();
+                
+                // Auto-start scan after 2 seconds
+                setTimeout(() => {
+                    startScan();
+                }, 2000);
+            }
+        }
+
+        function startScan() {
+            if (isScanning) return;
+            
+            isScanning = true;
+            scanProgress = 0;
+            
+            const statusElement = document.getElementById('scanStatus');
+            const progressFill = document.getElementById('scanProgressFill');
+            const resultsArea = document.getElementById('scanResults');
+            const startBtn = document.getElementById('startScanBtn');
+            const stopBtn = document.getElementById('stopScanBtn');
+            
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            
+            resultsArea.innerHTML = '<div class="scan-info">Starting comprehensive system scan...</div>';
+            
+            let messageIndex = 0;
+            let threatsFound = 0;
+            
+            scanInterval = setInterval(() => {
+                scanProgress += Math.random() * 10 + 8;
+                
+                if (scanProgress > 100) {
+                    scanProgress = 100;
+                    completeScan();
+                    return;
+                }
+                
+                progressFill.style.width = scanProgress + '%';
+                statusElement.textContent = `Scanning... ${Math.floor(scanProgress)}% complete`;
+                
+                // Add scan messages and threats
+                if (Math.random() < 0.4) {
+                    const message = scanMessages[messageIndex % scanMessages.length];
+                    resultsArea.innerHTML += `<div class="scan-info">${message}</div>`;
+                    messageIndex++;
+                }
+                
+                // Randomly find "threats"
+                if (Math.random() < 0.15 && threatsFound < 8) {
+                    const virusName = virusNames[Math.floor(Math.random() * virusNames.length)];
+                    const location = [
+                        'C:\\Windows\\System32\\',
+                        'C:\\Users\\User\\AppData\\',
+                        'C:\\Program Files\\',
+                        'C:\\Temp\\',
+                        'C:\\Downloads\\'
+                    ][Math.floor(Math.random() * 5)];
+                    
+                    resultsArea.innerHTML += `<div class="threat-item">⚠️ THREAT DETECTED: ${virusName}</div>`;
+                    resultsArea.innerHTML += `<div class="scan-info">   Location: ${location}suspicious_file_${threatsFound + 1}.exe</div>`;
+                    threatsFound++;
+                }
+                
+                // Auto-scroll to bottom
+                resultsArea.scrollTop = resultsArea.scrollHeight;
+                
+            }, 300 + Math.random() * 200);
+        }
+
+        function completeScan() {
+            clearInterval(scanInterval);
+            isScanning = false;
+            
+            const statusElement = document.getElementById('scanStatus');
+            const resultsArea = document.getElementById('scanResults');
+            const startBtn = document.getElementById('startScanBtn');
+            const stopBtn = document.getElementById('stopScanBtn');
+            
+            statusElement.textContent = '🚨 SCAN COMPLETE - THREATS DETECTED! 🚨';
+            statusElement.style.animation = 'blink 1s infinite';
+            
+            resultsArea.innerHTML += '<div class="scan-info">=====================================</div>';
+            resultsArea.innerHTML += '<div class="threat-item">🚨 SCAN SUMMARY 🚨</div>';
+            resultsArea.innerHTML += '<div class="threat-item">Files scanned: 847,293</div>';
+            resultsArea.innerHTML += '<div class="threat-item">Threats found: 69</div>';
+            resultsArea.innerHTML += '<div class="threat-item">Critical threats: 42</div>';
+            resultsArea.innerHTML += '<div class="scan-info">=====================================</div>';
+            resultsArea.innerHTML += '<div class="threat-item">⚠️ YOUR COMPUTER IS AT RISK! ⚠️</div>';
+            resultsArea.innerHTML += '<div class="scan-info">Immediate action required!</div>';
+            resultsArea.innerHTML += '<div class="scan-info">Purchase AVG Premium to remove threats!</div>';
+            
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            
+            // Auto-scroll to bottom
+            resultsArea.scrollTop = resultsArea.scrollHeight;
+            
+            // ⭐ STOP ALL POPUP ADS AFTER SCAN COMPLETES ⭐
+            stopAllPopups();
+            
+            // Show popup after scan
+            setTimeout(() => {
+                showConnectWalletDialog();
+                showHabibiBubble("Alhamdulillah! The popups have been cleansed by the power of prayer! 🙏");
+            }, 2000);
+        }
+
+        function stopScan() {
+            if (!isScanning) return;
+            
+            clearInterval(scanInterval);
+            isScanning = false;
+            
+            const statusElement = document.getElementById('scanStatus');
+            const startBtn = document.getElementById('startScanBtn');
+            const stopBtn = document.getElementById('stopScanBtn');
+            const resultsArea = document.getElementById('scanResults');
+            
+            statusElement.textContent = 'Scan stopped by user';
+            statusElement.style.animation = 'none';
+            
+            resultsArea.innerHTML += '<div class="scan-info">=====================================</div>';
+            resultsArea.innerHTML += '<div class="scan-info">SCAN INTERRUPTED</div>';
+            resultsArea.innerHTML += '<div class="threat-item">⚠️ Scan not completed - threats may remain!</div>';
+            
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        }
+
+        // ===== ORIGINAL SITE FUNCTIONALITY =====
+        // Global variables
+        let isDragging = false;
+        let habibiMessageIndex = 0;
+        let speechBubbleTimeout;
+        let currentVideoIndex = 0;
+        let isPlaying = false;
+        let isMuted = false;
+        let currentVolume = 0.7;
+
+        const habibiMessages = [
+            "Ahlan wa sahlan, habibi! Welcome to 404Arab! 🇸🇦",
+            "Mashallah! This coin will take you to the moon, inshallah! 🌙",
+            "Habibi, remember: diamond hands only! 💎",
+            "Alhamdulillah! May your bags be blessed with gains! 📈",
+            "Ya habibi, HODL like you're fasting in Ramadan! 🌙",
+            "Wallahi, this is the way to financial freedom! 💰",
+            "Subhanallah! Watch your portfolio grow like dates in the desert! 🌴"
+        ];
+
+        const errorDialogs = {
+            placeholder1: {
+                title: "Custom Error 1",
+                icon: "❌",
+                message: "This file contains HARAM content! -2 virgins for you.",
+                buttons: [
+                    { text: "OK", action: "closeErrorDialog" },
+                    { text: "Help", action: "showHelp1" }
+                ]
+            },
+            placeholder2: {
+                title: "Network Error",
+                icon: "🌐",
+                message: "Unable to connect to the blockchain. Please check your internet connection and try again.",
+                buttons: [
+                    { text: "Retry", action: "retryConnection" },
+                    { text: "Cancel", action: "closeErrorDialog" }
+                ]
+            },
+            placeholder3: {
+                title: "Warning",
+                icon: "⚠️",
+                message: "This action cannot be undone. Are you sure you want to proceed?",
+                buttons: [
+                    { text: "Yes", action: "confirmAction" },
+                    { text: "No", action: "closeErrorDialog" }
+                ]
+            }
+        };
+
+        // ⭐ VIDEO PLAYLIST - INSERT YOUR VIDEO SOURCES HERE ⭐
+        const videoPlaylist = [
+            {
+                src: "https://packaged-media.redd.it/kanf12lj668f1/pb/m2-res_888p.mp4?m=DASHPlaylist.mpd&v=1&e=1750917600&s=a0ad05c45a607b6638466b75203a3d131323e870#t=0.492972", // Replace with your video URL
+                title: "Arab Funny Compilation #1.mp4",
+                
+            },
+            {
+                src: "https://packaged-media.redd.it/tqdhcgwxoh8f1/pb/m2-res_888p.mp4?m=DASHPlaylist.mpd&v=1&e=1750917600&s=c489a487d8ce35b1f80872f64f2d459baaeb25cc#t=1.852322", // Replace with your video URL
+                title: "مهمة ناجحة يا رجل القضيب😼😼😼",
+                
+            },
+            {
+                src: "https://packaged-media.redd.it/c6bvtateo97f1/pb/m2-res_640p.mp4?m=DASHPlaylist.mpd&v=1&e=1750914000&s=733d2493eeedb7b79c7d754412a3747e58a02e71#t=1.880358", // Replace with your video URL
+                title: "BASED KHOMEINI 😯😬 🥶🇮🇷🇮🇷🇮🇷🇮🇷 #osamabinladen #iran",
+                
+            },
+            {
+                src: "https://packaged-media.redd.it/9lpx9ur6bx5f1/pb/m2-res_480p.mp4?m=DASHPlaylist.mpd&v=1&e=1750906800&s=17254da9731d7884ae7f8499f05718e4f9c83700", // Replace with your video URL
+                title: "Inshallah we will destroy the evil eye",
+                
+            }
+            // Add more videos here following the same format
+        ];
+
+        // Main window functions
+        function openMainWindow() {
+            const mainWindow = document.getElementById('mainWindow');
+            mainWindow.classList.remove('hidden');
+            
+            // Fix the transform issue ONCE when opening - convert to normal positioning
+            const rect = mainWindow.getBoundingClientRect();
+            mainWindow.style.left = rect.left + 'px';
+            mainWindow.style.top = rect.top + 'px';
+            mainWindow.style.transform = 'none';
+
+            bringWindowToFront(mainWindow);
+            setupWindowClickHandlers();
+            
+            // Simulate page loading
+            simulatePageLoad();
+        }
+
+        function refreshBrowser() {
+            // Simulate refresh
+            const statusTexts = document.querySelectorAll('.status-text');
+            const progressBar = document.getElementById('loadingProgress');
+            
+            if (statusTexts.length > 0) {
+                statusTexts[0].textContent = 'Loading...';
+            }
+            
+            if (progressBar) {
+                progressBar.style.width = '0%';
+                let progress = 0;
+                const loadInterval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress >= 100) {
+                        progress = 100;
+                        progressBar.style.width = '100%';
+                        statusTexts[0].textContent = 'Done';
+                        clearInterval(loadInterval);
+                        
+                        // Update visitor counter
+                        const counter = document.querySelector('.counter-digits');
+                        if (counter) {
+                            const currentCount = parseInt(counter.textContent.replace(/,/g, ''));
+                            counter.textContent = (currentCount + Math.floor(Math.random() * 10) + 1).toLocaleString();
+                        }
+                    } else {
+                        progressBar.style.width = progress + '%';
+                    }
+                }, 100);
+            }
+            
+            showNotification('Page refreshed! Alhamdulillah! 🔄');
+        }
+
+        function simulatePageLoad() {
+            const statusTexts = document.querySelectorAll('.status-text');
+            const progressBar = document.getElementById('loadingProgress');
+            
+            if (statusTexts.length > 0 && progressBar) {
+                statusTexts[0].textContent = 'Loading...';
+                progressBar.style.width = '0%';
+                
+                let progress = 0;
+                const loadInterval = setInterval(() => {
+                    progress += Math.random() * 20;
+                    if (progress >= 100) {
+                        progress = 100;
+                        progressBar.style.width = '100%';
+                        statusTexts[0].textContent = 'Done';
+                        clearInterval(loadInterval);
+                    } else {
+                        progressBar.style.width = progress + '%';
+                    }
+                }, 150);
+            }
+        }
+
+        function openFolder() {
+            const folderWindow = document.getElementById('folderWindow');
+            if (folderWindow) {
+                folderWindow.classList.remove('hidden');
+                folderWindow.style.display = 'block';
+                folderWindow.style.visibility = 'visible';
+                folderWindow.style.position = 'fixed';
+                folderWindow.style.top = '80px';
+                folderWindow.style.left = '150px';
+                bringWindowToFront(folderWindow);
+                setupWindowClickHandlers();
+            }
+        }
+
+        // Media Player Functions
+        function openMediaPlayer() {
+            const mediaPlayerWindow = document.getElementById('mediaPlayer');
+            if (mediaPlayerWindow) {
+                mediaPlayerWindow.classList.remove('hidden');
+                mediaPlayerWindow.style.display = 'block';
+                mediaPlayerWindow.style.visibility = 'visible';
+                mediaPlayerWindow.style.position = 'fixed';
+                mediaPlayerWindow.style.top = '70px';
+                mediaPlayerWindow.style.left = '250px';
+                bringWindowToFront(mediaPlayerWindow);
+                setupWindowClickHandlers();
+                initializeMediaPlayer();
+            }
+        }
+
+        function initializeMediaPlayer() {
+            const video = document.getElementById('videoElement');
+            if (!video) return;
+            
+            // Set initial volume
+            video.volume = currentVolume;
+            updateVolumeDisplay();
+            
+            // Update progress bar during playback
+            video.addEventListener('timeupdate', updateProgress);
+            video.addEventListener('loadedmetadata', updateDuration);
+            video.addEventListener('ended', onVideoEnded);
+            
+            // Load first video if available
+            if (videoPlaylist.length > 0) {
+                loadVideo(0);
+            }
+        }
+
+        function mediaPlayPause() {
+            const video = document.getElementById('videoElement');
+            if (!video) return;
+            
+            if (video.src === '' || video.src === window.location.href) {
+                showNotification('No video loaded. Please add video sources to the playlist.');
+                return;
+            }
+            
+            if (isPlaying) {
+                video.pause();
+                isPlaying = false;
+                updateMediaStatus('Paused');
+            } else {
+                video.play().then(() => {
+                    isPlaying = true;
+                    updateMediaStatus('Playing');
+                }).catch(e => {
+                    showNotification('Error playing video: ' + e.message);
+                });
+            }
+            updatePlayButton();
+        }
+
+        function mediaStop() {
+            const video = document.getElementById('videoElement');
+            if (!video) return;
+            
+            video.pause();
+            video.currentTime = 0;
+            isPlaying = false;
+            updatePlayButton();
+            updateMediaStatus('Stopped');
+        }
+
+        function mediaPrevious() {
+            if (currentVideoIndex > 0) {
+                currentVideoIndex--;
+                loadVideo(currentVideoIndex);
+            } else {
+                showNotification('Already at first video');
+            }
+        }
+
+        function mediaNext() {
+            if (currentVideoIndex < videoPlaylist.length - 1) {
+                currentVideoIndex++;
+                loadVideo(currentVideoIndex);
+            } else {
+                showNotification('Already at last video');
+            }
+        }
+
+        function loadVideo(index) {
+            if (index < 0 || index >= videoPlaylist.length) return;
+            
+            const video = document.getElementById('videoElement');
+            const placeholder = document.getElementById('videoPlaceholder');
+            if (!video || !placeholder) return;
+            
+            const videoData = videoPlaylist[index];
+            currentVideoIndex = index;
+            
+            // Update video source
+            video.src = videoData.src;
+            video.load();
+            
+            // Hide placeholder if video loads successfully
+            video.addEventListener('loadstart', () => {
+                placeholder.style.display = 'none';
+            });
+            
+            video.addEventListener('error', () => {
+                placeholder.style.display = 'block';
+                placeholder.innerHTML = `Video not found<br/><small>Check video source: ${videoData.src}</small>`;
+            });
+            
+            // Update playlist highlighting
+            updatePlaylistHighlight(index);
+            
+            // Update media info
+            updateMediaInfo(videoData.title);
+            updateMediaStatus('Loaded');
+            
+            // Reset play state
+            isPlaying = false;
+            updatePlayButton();
+        }
+
+        function updatePlayButton() {
+            const playButton = document.getElementById('btnPlayPause');
+            if (playButton) {
+                playButton.textContent = isPlaying ? '⏸' : '▶';
+            }
+        }
+
+        function updateProgress() {
+            const video = document.getElementById('videoElement');
+            const progressFill = document.getElementById('progressFill');
+            const currentTimeSpan = document.getElementById('currentTime');
+            
+            if (video && progressFill && currentTimeSpan && video.duration) {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressFill.style.width = progress + '%';
+                currentTimeSpan.textContent = formatTime(video.currentTime);
+            }
+        }
+
+        function updateDuration() {
+            const video = document.getElementById('videoElement');
+            const totalTimeSpan = document.getElementById('totalTime');
+            
+            if (video && totalTimeSpan && video.duration) {
+                totalTimeSpan.textContent = formatTime(video.duration);
+            }
+        }
+
+        function seekVideo(event) {
+            const video = document.getElementById('videoElement');
+            if (!video) return;
+            
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (event.clientX - rect.left) / rect.width;
+            
+            if (video.duration) {
+                video.currentTime = percent * video.duration;
+            }
+        }
+
+        function toggleMute() {
+            const video = document.getElementById('videoElement');
+            const muteButton = document.getElementById('btnMute');
+            if (!video || !muteButton) return;
+            
+            isMuted = !isMuted;
+            video.muted = isMuted;
+            
+            muteButton.textContent = isMuted ? '🔇' : '🔊';
+            updateVolumeDisplay();
+        }
+
+        function setVolume(event) {
+            const video = document.getElementById('videoElement');
+            if (!video) return;
+            
+            const volumeBar = event.currentTarget;
+            const rect = volumeBar.getBoundingClientRect();
+            const percent = (event.clientX - rect.left) / rect.width;
+            
+            currentVolume = Math.max(0, Math.min(1, percent));
+            video.volume = currentVolume;
+            
+            if (currentVolume > 0 && isMuted) {
+                isMuted = false;
+                video.muted = false;
+                const muteButton = document.getElementById('btnMute');
+                if (muteButton) {
+                    muteButton.textContent = '🔊';
+                }
+            }
+            
+            updateVolumeDisplay();
+        }
+
+        function updateVolumeDisplay() {
+            const volumeFill = document.getElementById('volumeFill');
+            if (volumeFill) {
+                const displayVolume = isMuted ? 0 : currentVolume;
+                volumeFill.style.width = (displayVolume * 100) + '%';
+            }
+        }
+
+        function updatePlaylistHighlight(activeIndex) {
+            const playlistItems = document.querySelectorAll('.playlist-item');
+            playlistItems.forEach((item, index) => {
+                if (index === activeIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        function updateMediaStatus(status) {
+            const statusElement = document.getElementById('mediaStatus');
+            if (statusElement) {
+                statusElement.textContent = status;
+            }
+        }
+
+        function updateMediaInfo(info) {
+            const infoElement = document.getElementById('mediaInfo');
+            if (infoElement) {
+                infoElement.textContent = info;
+            }
+        }
+
+        function onVideoEnded() {
+            isPlaying = false;
+            updatePlayButton();
+            updateMediaStatus('Ended');
+            
+            // Auto-play next video if available
+            if (currentVideoIndex < videoPlaylist.length - 1) {
+                setTimeout(() => {
+                    mediaNext();
+                    setTimeout(() => {
+                        mediaPlayPause();
+                    }, 500);
+                }, 1000);
+            }
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Window management functions
+        function closeWindow(windowId) {
+            document.getElementById(windowId).classList.add('hidden');
+            
+            if (windowId === 'imageViewer') {
+                currentZoom = 1;
+                document.getElementById('viewerImage').style.transform = 'scale(1)';
+            }
+            
+            if (windowId === 'mediaPlayer') {
+                const video = document.getElementById('videoElement');
+                if (video) {
+                    video.pause();
+                    isPlaying = false;
+                    updatePlayButton();
+                }
+            }
+            
+            if (windowId === 'antivirusWindow') {
+                stopScan();
+            }
+        }
+
+        // Phantom Wallet Prank Functions
+        function showConnectWalletDialog() {
+            const dialog = document.getElementById('connectWalletDialog');
+            dialog.style.display = 'block';
+        }
+
+        function closeConnectWalletDialog() {
+            const dialog = document.getElementById('connectWalletDialog');
+            dialog.style.display = 'none';
+        }
+
+        function startPhantomPrank() {
+            // Close connect wallet dialog
+            closeConnectWalletDialog();
+            
+            // Show phantom window
+            const phantomWindow = document.getElementById('phantomWindow');
+            phantomWindow.style.display = 'block';
+            
+            // Auto-fill password after a short delay
+            setTimeout(() => {
+                const passwordInput = document.getElementById('phantomPasswordInput');
+                passwordInput.value = '••••••••••••••••';
+            }, 500);
+            
+            // Auto-click unlock after 2 seconds
+            setTimeout(() => {
+                unlockPhantom();
+            }, 1000);
+        }
+
+        function unlockPhantom() {
+            const loginSection = document.getElementById('phantomLogin');
+            const successSection = document.getElementById('phantomSuccess');
+            
+            // Hide login, show success
+            loginSection.style.display = 'none';
+            successSection.style.display = 'block';
+            
+            // Auto-close phantom and show thanks after 3 seconds
+            setTimeout(() => {
+                closePhantomAndShowThanks();
+            }, 1000);
+        }
+
+        function closePhantomAndShowThanks() {
+            const phantomWindow = document.getElementById('phantomWindow');
+            const thanksDialog = document.getElementById('thanksDialog');
+            
+            // Hide phantom window
+            phantomWindow.style.display = 'none';
+            
+            // Reset phantom window state
+            const loginSection = document.getElementById('phantomLogin');
+            const successSection = document.getElementById('phantomSuccess');
+            loginSection.style.display = 'block';
+            successSection.style.display = 'none';
+            
+            // Show thanks dialog
+            thanksDialog.style.display = 'block';
+        }
+
+        function closeThanksDialog() {
+            const thanksDialog = document.getElementById('thanksDialog');
+            thanksDialog.style.display = 'none';
+        }
+
+        // Error Dialog System
+        function showErrorDialog(errorType) {
+            const config = errorDialogs[errorType];
+            if (!config) {
+                console.error(`Error dialog config not found for: ${errorType}`);
+                return;
+            }
+
+            const dialog = document.createElement('div');
+            dialog.className = 'error-dialog';
+            dialog.id = `errorDialog_${errorType}`;
+            
+            // Random position
+            dialog.style.left = Math.random() * (window.innerWidth - 350) + 50 + 'px';
+            dialog.style.top = Math.random() * (window.innerHeight - 200) + 100 + 'px';
+
+            // Create buttons HTML
+            let buttonsHtml = '';
+            config.buttons.forEach(button => {
+                buttonsHtml += `<div class="error-button" onclick="handleErrorAction('${button.action}', '${errorType}')">${button.text}</div>`;
+            });
+
+            dialog.innerHTML = `
+                <div class="error-dialog-titlebar">
+                    <span>${config.title}</span>
+                    <div class="error-dialog-close" onclick="closeErrorDialog('${errorType}')">×</div>
+                </div>
+                <div class="error-dialog-content">
+                    <div class="error-icon">${config.icon}</div>
+                    <div class="error-message">${config.message}</div>
+                </div>
+                <div class="error-buttons">
+                    ${buttonsHtml}
+                </div>
+            `;
+
+            document.body.appendChild(dialog);
+            makeErrorDialogDraggable(dialog);
+        }
+
+        function closeErrorDialog(errorType) {
+            const dialog = document.getElementById(`errorDialog_${errorType}`);
+            if (dialog) {
+                dialog.remove();
+            }
+        }
+
+        function handleErrorAction(action, errorType) {
+            switch(action) {
+                case 'closeErrorDialog':
+                    closeErrorDialog(errorType);
+                    break;
+                case 'showHelp1':
+                    showNotification('Help: No help is coming!');
+                    break;
+                case 'retryConnection':
+                    showNotification('Retrying connection...');
+                    closeErrorDialog(errorType);
+                    break;
+                case 'confirmAction':
+                    showNotification('Action confirmed!');
+                    closeErrorDialog(errorType);
+                    break;
+                default:
+                    console.log(`Custom action: ${action}`);
+                    closeErrorDialog(errorType);
+            }
+        }
+
+        function makeErrorDialogDraggable(dialog) {
+            const titlebar = dialog.querySelector('.error-dialog-titlebar');
+            let offset = { x: 0, y: 0 };
+            let isDragging = false;
+
+            titlebar.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                const rect = dialog.getBoundingClientRect();
+                offset.x = e.clientX - rect.left;
+                offset.y = e.clientY - rect.top;
+                titlebar.style.cursor = 'grabbing';
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    dialog.style.left = (e.clientX - offset.x) + 'px';
+                    dialog.style.top = (e.clientY - offset.y) + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    titlebar.style.cursor = 'move';
+                }
+            });
+        }
+
+        // Habibi functions
+        function showHabibiBubble(message = null) {
+            const bubble = document.getElementById('speechBubble');
+            const textElement = document.getElementById('habibiText');
+            
+            if (speechBubbleTimeout) {
+                clearTimeout(speechBubbleTimeout);
+            }
+            
+            if (message) {
+                textElement.textContent = message;
+            } else {
+                textElement.textContent = habibiMessages[habibiMessageIndex];
+                habibiMessageIndex = (habibiMessageIndex + 1) % habibiMessages.length;
+            }
+            
+            bubble.style.display = 'block';
+            
+            speechBubbleTimeout = setTimeout(() => {
+                bubble.style.display = 'none';
+            }, 4000);
+        }
+
+        // Utility functions
+        function copyContract() {
+            const contractAddress = '3WfpTHGKkfXag5SicADtGPnwvvcpm8saE3hWvAychmvS';
+            navigator.clipboard.writeText(contractAddress).then(() => {
+                showNotification('Contract address copied to clipboard! 📋');
+            }).catch(() => {
+                showNotification('Contract address: ' + contractAddress);
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 40px;
+                right: 20px;
+                background: #ffffc0;
+                border: 2px solid #000;
+                padding: 10px;
+                font-family: Tahoma, sans-serif;
+                font-size: 11px;
+                z-index: 2000;
+                box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+                border-radius: 4px;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        function showStartMenu() {
+            showNotification('Upgrade to Halal OS 2.0 for $24.00 a month to enable this function.');
+        }
+
+        // Window management system
+        let activeWindow = null;
+
+        function bringWindowToFront(windowElement) {
+            if (windowElement) {
+                document.querySelectorAll('.window').forEach(win => {
+                    win.style.setProperty('z-index', '0', 'important');
+                    win.classList.remove('active-window');
+                });
+                
+                windowElement.style.setProperty('z-index', '1000', 'important');
+                windowElement.classList.add('active-window');
+                activeWindow = windowElement;
+            }
+        }
+
+        function setupWindowClickHandlers() {
+            const allWindows = document.querySelectorAll('.window');
+            allWindows.forEach(window => {
+                window.removeEventListener('mousedown', windowClickHandler);
+                window.addEventListener('mousedown', windowClickHandler);
+            });
+        }
+
+        function windowClickHandler(e) {
+            if (!e.target.classList.contains('window-control')) {
+                bringWindowToFront(this);
+            }
+        }
+
+          // Image Gallery System
+        let currentImageIndex = 0;
+        let currentZoom = 1;
+        let imageGallery = [
+            {
+                src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKXp9wd1hQ1TACnLWIRMkQgd0W80dAeJGZVQ&s",
+                filename: "Wife 1",
+               
+            },
+            {
+                src: "https://pbs.twimg.com/media/GovM9AQWMAA39Sf?format=jpg&name=large",
+                filename: "Wife 2", 
+                
+            },
+            {
+                src: "https://pbs.twimg.com/media/GhnEhZmbcAAyjhU.jpg",
+                filename: "Wife 3",
+              
+            },
+            {
+                src: "https://pbs.twimg.com/media/FmsujVmWYAwEbGO.jpg",
+                filename: "Wife 4",
+                
+            },
+            {
+                src: "https://static10.tgstat.ru/channels/_0/4f/4ff780779bc06a3982828305c9ffeb74.jpg",
+                filename: "Wife 5",
+              
+            },
+            {
+                src: "https://pbs.twimg.com/media/EPKWEvSW4AIw0p6.jpg",
+                filename: "Wife 6",
+                
+            },
+               {
+                src: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6efc2377-b08b-48b6-b037-792e70e86582/dhuxe79-0b269338-0a8e-4311-b63f-095735d71fdd.jpg/v1/fill/w_320,h_320,q_75,strp/untitled_by_celal74500_dhuxe79-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MzIwIiwicGF0aCI6IlwvZlwvNmVmYzIzNzctYjA4Yi00OGI2LWIwMzctNzkyZTcwZTg2NTgyXC9kaHV4ZTc5LTBiMjY5MzM4LTBhOGUtNDMxMS1iNjNmLTA5NTczNWQ3MWZkZC5qcGciLCJ3aWR0aCI6Ijw9MzIwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.cHzIYXaYYywyQzYH2AL6Tuc95ox4TGgye1ExdaH-oJI",
+                filename: "Wife 7",
+              
+            },
+               {
+                src: "https://image.cdn2.seaart.me/temp-convert-webp/highwebp/2025-05-25/d0pbdgde878c73chs0pg-1/3d4a42530a14f5eb20d7ac4ad93a310b_low.webp",
+                filename: "Wife 8",
+               
+            },
+               {
+                src: "https://pbs.twimg.com/media/GV9rTMjWcAAhHfE.jpg",
+                filename: "Wife 9",
+                
+            },
+               {
+                src: "https://preview.redd.it/teen-yemeni-hijabi-feet-and-soles-v0-f8bjeoil1f9e1.jpg?width=495&format=pjpg&auto=webp&s=b57bf3559128f74eb9362b17a26dcc4096d95c68",
+                filename: "Wife 10",
+                
+            },
+               {
+                src: "https://preview.redd.it/rfc5sysp4he71.jpg?width=640&crop=smart&auto=webp&s=7edf408f2b05db8b874a2ae7d310289b12d702cd",
+                filename: "Wife 11",
+                
+            },
+               {
+                src: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a25093c9-63b9-4c54-9649-10d7ade9e9a7/djs37sh-3634a27b-f84d-43a0-a18c-15e3796c3131.jpg/v1/fit/w_414,h_552,q_70,strp/hijab_soles_close_up_by_feetarchive99_djs37sh-414w.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTcwNyIsInBhdGgiOiJcL2ZcL2EyNTA5M2M5LTYzYjktNGM1NC05NjQ5LTEwZDdhZGU5ZTlhN1wvZGpzMzdzaC0zNjM0YTI3Yi1mODRkLTQzYTAtYTE4Yy0xNWUzNzk2YzMxMzEuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Z2hKdU2eB-eZSdZoH6xA-00iw3auH0UYFhD2588MEcA",
+                filename: "Wife 12",
+               
+            },
+        ];
+
+        function openImageViewer(imageIndex) {
+            currentImageIndex = imageIndex;
+            currentZoom = 1;
+            updateImageViewer();
+            
+            const viewerWindow = document.getElementById('imageViewer');
+            if (viewerWindow) {
+                viewerWindow.classList.remove('hidden');
+                viewerWindow.style.display = 'block';
+                viewerWindow.style.visibility = 'visible';
+                viewerWindow.style.position = 'fixed';
+                viewerWindow.style.top = '60px';
+                viewerWindow.style.left = '300px';
+                bringWindowToFront(viewerWindow);
+                setupWindowClickHandlers();
+            }
+        }
+
+        function updateImageViewer() {
+            if (currentImageIndex >= imageGallery.length) return;
+            
+            const image = imageGallery[currentImageIndex];
+            const viewerImage = document.getElementById('viewerImage');
+            const imageInfo = document.getElementById('imageInfo');
+            const imageTitle = document.getElementById('imageViewerTitle');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+
+            if (!viewerImage || !imageInfo || !imageTitle) return;
+
+            viewerImage.src = image.src;
+            viewerImage.alt = image.alt;
+            viewerImage.style.transform = `scale(${currentZoom})`;
+
+            imageInfo.textContent = `Image ${currentImageIndex + 1} of ${imageGallery.length} - ${image.filename}`;
+            imageTitle.textContent = `🖼️ ${image.filename}`;
+
+            if (prevButton && nextButton) {
+                prevButton.disabled = currentImageIndex === 0;
+                nextButton.disabled = currentImageIndex === imageGallery.length - 1;
+
+                prevButton.style.opacity = prevButton.disabled ? '0.5' : '1';
+                prevButton.style.cursor = prevButton.disabled ? 'not-allowed' : 'pointer';
+                nextButton.style.opacity = nextButton.disabled ? '0.5' : '1';
+                nextButton.style.cursor = nextButton.disabled ? 'not-allowed' : 'pointer';
+            }
+        }
+
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                currentZoom = 1;
+                updateImageViewer();
+            }
+        }
+
+        function nextImage() {
+            if (currentImageIndex < imageGallery.length - 1) {
+                currentImageIndex++;
+                currentZoom = 1;
+                updateImageViewer();
+            }
+        }
+
+        function zoomIn() {
+            if (currentZoom < 3) {
+                currentZoom += 0.25;
+                document.getElementById('viewerImage').style.transform = `scale(${currentZoom})`;
+            }
+        }
+
+        function zoomOut() {
+            if (currentZoom > 0.25) {
+                currentZoom -= 0.25;
+                document.getElementById('viewerImage').style.transform = `scale(${currentZoom})`;
+            }
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            document.getElementById('viewerImage').style.transform = `scale(${currentZoom})`;
+        }
+
+        function openChatWindow() {
+            const chatWindow = document.getElementById('chatWindow');
+            if (chatWindow) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.style.display = 'block';
+                chatWindow.style.visibility = 'visible';
+                chatWindow.style.position = 'fixed';
+                chatWindow.style.top = '100px';
+                chatWindow.style.left = '100px';
+                bringWindowToFront(chatWindow);
+                setupWindowClickHandlers();
+            }
+        }
+
+        // Keyboard navigation for image viewer
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('imageViewer').classList.contains('hidden')) {
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        previousImage();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        nextImage();
+                        break;
+                    case 'Escape':
+                        e.preventDefault();
+                        closeWindow('imageViewer');
+                        break;
+                    case '+':
+                    case '=':
+                        e.preventDefault();
+                        zoomIn();
+                        break;
+                    case '-':
+                        e.preventDefault();
+                        zoomOut();
+                        break;
+                    case '0':
+                        e.preventDefault();
+                        resetZoom();
+                        break;
+                }
+            }
+        });
+
+        function updateClock() {
+            const now = new Date();
+            const clockElement = document.getElementById('clock');
+            if (clockElement) {
+                clockElement.textContent = now.toLocaleTimeString();
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            setupWindowClickHandlers();
+            
+            // Initialize chat system
+            if (typeof chattable !== 'undefined') {
+                chattable.initialize({ theme: "Wannabe XP" });
+            }
+            
+            setTimeout(() => {
+                openMainWindow();
+            }, 1000);
+
+            setTimeout(() => {
+                showHabibiBubble("To get rid of the popup ads try using prayer!");
+            }, 2500);
+
+            // Start the popup ad system
+            setTimeout(() => {
+                startPopupSystem();
+            }, 1000);
+
+            // Periodic habibi messages
+            setInterval(() => {
+                if (Math.random() < 0.3) {
+                    showHabibiBubble();
+                }
+            }, 5000);
+        });
+
+        // Make window draggable
+        let draggedElement = null;
+        let offset = { x: 0, y: 0 };
+
+        document.addEventListener('mousedown', function(e) {
+            if (e.target.classList.contains('window-titlebar') || e.target.parentElement.classList.contains('window-titlebar')) {
+                draggedElement = e.target.closest('.window');
+                bringWindowToFront(draggedElement);
+
+                if (draggedElement.id === 'mainWindow') {
+                    const rect = draggedElement.getBoundingClientRect();
+                    draggedElement.style.left = rect.left + 'px';
+                    draggedElement.style.transform = 'none';
+                }
+
+                const rect = draggedElement.getBoundingClientRect();
+                offset.x = e.clientX - rect.left;
+                offset.y = e.clientY - rect.top;
+            }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (draggedElement) {
+                draggedElement.style.left = (e.clientX - offset.x) + 'px';
+                draggedElement.style.top = (e.clientY - offset.y) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (draggedElement) {
+                draggedElement = null;
+            }
+        });
+
+        // ===== POPUP CONTROL FUNCTIONS =====
+        // You can call these from the browser console to control popups
+
+        // Stop all popups
+        window.stopPopups = stopAllPopups;
+        
+        // Start popup system
+        window.startPopups = startPopupSystem;
+        
+        // Create a specific popup manually
+        window.testPopup = function(adIndex = 0) {
+            if (adIndex < POPUP_ADS.length) {
+                createPopup(POPUP_ADS[adIndex]);
+            }
+        };
+        
+        // Adjust popup frequency (in milliseconds)
+        window.setPopupFrequency = function(min = 3000, max = 8000) {
+            POPUP_CONFIG.minInterval = min;
+            POPUP_CONFIG.maxInterval = max;
+            console.log(`Popup frequency set to ${min}-${max}ms`);
+        };
+        
+        // Set max simultaneous popups
+        window.setMaxPopups = function(max = 3) {
+            POPUP_CONFIG.maxPopups = max;
+            console.log(`Max popups set to ${max}`);
+        };
+    </script>
+<script>
+const popupSounds = [
+  'sfx/perfect-fart.mp3',
+  'sfx/applepay.mp3',
+  'sfx/arab-litterly.mp3',
+  'sfx/crazy-realistic-knocking-sound-troll-twitch-streamers_small.mp3',
+  'sfx/discord-call-sound.mp3',
+  'sfx/discord-notification.mp3',
+  'sfx/dj-khaled-says-baklava (1).mp3',
+  'sfx/error_CDOxCYm.mp3',
+  'sfx/layn3el-dil-babakom-monafi9in.mp3',
+  'sfx/pluh.mp3',
+  'sfx/rizz-sound-effect.mp3',
+  'sfx/yt1s_nYWSz5R.mp3',
+  'sfx/facebook-messenger-ringtone.mp3',
+  'sfx/nokia-ringtone-arabic_0rZNiK8.mp3',
+  'sfx/botao-do-whatsapp.mp3',
+  'sfx/samsung-ringtone.mp3',
+  'sfx/arab-funny.mp3',
+  'sfx/galaxy-meme.mp3',
+  'sfx/smoke-detector-beep.mp3',
+  'sfx/movie_1.mp3',
+  'sfx/oh-my-god-bro-oh-hell-nah-man.mp3',
+  'sfx/money-soundfx.mp3',
+  'sfx/loading-lost-connection-green-screen-with-sound-effect-2_K8HORkT.mp3',
+  'sfx/nokia-arabe.mp3',
+
+];
+
+function playRandomPopupSound() {
+  const audio = new Audio(popupSounds[Math.floor(Math.random() * popupSounds.length)]);
+  audio.play();
+}
+</script>
+</div></body>
+</html>
