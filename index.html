@@ -2704,14 +2704,6 @@ body {
                 urgent: false,
                 weight: 3      // Égalisé avec les autres
             },
-            {
-                title: '🐷 PORK 🐷',
-                image: 'images/PORK.jpeg',
-                width: 500,
-                height: 400,
-                urgent: true,  // Toujours visible
-                weight: 3      // Égalisé avec les autres
-            },
             // Nouvelles images ajoutées
             {
                 title: '🖼️ Image 1',
@@ -3003,15 +2995,33 @@ body {
                     imgSrc = ad.image.startsWith('./') ? ad.image : ('./' + ad.image);
                 }
             }
+            const idSuffix = Math.random().toString(36).slice(2,9);
+            const imgId = `popup_img_${idSuffix}`;
+            const containerId = `popup_container_${idSuffix}`;
+            setTimeout(()=>{
+                const el = document.getElementById(imgId);
+                if (el) {
+                    el.addEventListener('error', () => {
+                        console.warn('Image FAILED:', imgSrc, '-> showing placeholder');
+                        const c = document.getElementById(containerId);
+                        if (c) {
+                            c.innerHTML = `<div class="popup-image placeholder-image" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:18px;text-align:center;padding:6px;background:#222;color:#ff4444;">Image not found\n${ad.image}</div>`;
+                        }
+                    });
+                    el.addEventListener('load', () => {
+                        console.log('Image OK:', imgSrc, el.naturalWidth+'x'+el.naturalHeight);
+                    });
+                }
+            },0);
 
             return `
                 <div class="popup-titlebar">
                     <span>${ad.title}</span>
                     <div class="popup-close">×</div>
                 </div>
-                <div class="popup-image-container" style="width: ${width}px; height: ${height}px;">
+                <div class="popup-image-container" id="${containerId}" style="width: ${width}px; height: ${height}px;">
                     ${ad.image ? 
-                        `<img src="${imgSrc}" alt="${ad.title}" class="popup-image" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" />` :
+                        `<img id="${imgId}" src="${imgSrc}" alt="${ad.title}" class="popup-image" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer; background:#111;" />` :
                         `<div class="popup-image placeholder-image" style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 48px; cursor: pointer;">🖼️</div>`
                     }
                 </div>
@@ -3679,6 +3689,90 @@ body {
                 document.head.appendChild(style);
             }
         }
+
+        /********************* AUDIO UNLOCK & RELIABLE PLAYBACK ************************/ 
+        // Amélioration lecture audio : réutilisation d'un seul objet + déblocage interaction utilisateur
+        let __popupAudioElement = null;
+        let __audioUnlocked = false;
+        let __pendingSoundRequests = 0;
+
+        function initPopupAudio() {
+            if (!__popupAudioElement) {
+                __popupAudioElement = new Audio('audio/Sans titre 2.m4a');
+                __popupAudioElement.preload = 'auto';
+                __popupAudioElement.volume = 0.6;
+            }
+        }
+
+        function unlockAudioOnFirstGesture() {
+            if (__audioUnlocked) return;
+            const tryPlay = () => {
+                initPopupAudio();
+                __popupAudioElement.currentTime = 0;
+                __popupAudioElement.play().then(()=>{
+                    __audioUnlocked = true;
+                    console.log('[Audio] Unlocked');
+                    window.removeEventListener('click', tryPlay);
+                    window.removeEventListener('keydown', tryPlay);
+                    // Rejouer éventuelles demandes en attente
+                    const toReplay = Math.min(__pendingSoundRequests, 5);
+                    __pendingSoundRequests = 0;
+                    for (let i=0;i<toReplay;i++) safePlayPopupSound();
+                }).catch(err => {
+                    console.warn('[Audio] Unlock attempt blocked:', err);
+                });
+            };
+            window.addEventListener('click', tryPlay, { once: false });
+            window.addEventListener('keydown', tryPlay, { once: false });
+        }
+
+        function safePlayPopupSound() {
+            initPopupAudio();
+            if (!__audioUnlocked) {
+                __pendingSoundRequests++;
+                return; // on attend geste utilisateur
+            }
+            try {
+                __popupAudioElement.currentTime = 0;
+                __popupAudioElement.play().catch(err => {
+                    console.warn('[Audio] play() failed after unlock:', err);
+                });
+            } catch(e) {
+                console.error('[Audio] unexpected error', e);
+            }
+        }
+
+        // Remplacer l'appel direct ancien playRandomPopupSound pour utiliser safePlayPopupSound
+        const __origPlayRandomPopupSound = playRandomPopupSound;
+        playRandomPopupSound = function() { // override
+            safePlayPopupSound();
+        };
+
+        // Initialisation audio différée
+        window.addEventListener('DOMContentLoaded', () => {
+            unlockAudioOnFirstGesture();
+            console.log('[Audio] Waiting for user gesture to unlock playback');
+        });
+
+        /********************* FIN AUDIO ************************/
+
+        /********************* DIAGNOSTIC PRELOAD IMAGES ************************/
+        function preloadAllPopupImages() {
+            let ok=0, fail=0;
+            POPUP_ADS.forEach(ad => {
+                if (!ad.image) return;
+                const img = new Image();
+                const path = ad.image.startsWith('images/') ? ad.image : (ad.image.startsWith('./') ? ad.image.slice(2) : ad.image);
+                img.onload = () => { ok++; console.log('[Preload OK]', path, img.naturalWidth+'x'+img.naturalHeight); };
+                img.onerror = () => { fail++; console.warn('[Preload FAIL]', path); };
+                img.src = path;
+            });
+            setTimeout(()=>{
+                console.log(`[Preload Completed] Success: ${ok} | Fail: ${fail}`);
+            }, 2000);
+        }
+        window.addEventListener('DOMContentLoaded', ()=> setTimeout(preloadAllPopupImages, 800));
+        /********************* FIN DIAGNOSTIC ************************/
 
         // Media Player Functions
         function openMediaPlayer() {
