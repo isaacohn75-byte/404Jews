@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>404Arab - Welcome to Windows XP</title>
+<title>SalamShalom - Welcome to Windows XP</title>
 <script src="https://iframe.chat/scripts/main.min.js"></script>
 <style>
         * {
@@ -278,6 +278,53 @@
 
         .popup-urgent {
             animation: shake 0.3s ease-in-out infinite;
+        }
+
+        /* Animation Pop-corn pour l'image 4 */
+        @keyframes popcorn {
+            0% { 
+                transform: scale(1) rotate(0deg);
+            }
+            10% { 
+                transform: scale(1.05) rotate(-2deg);
+            }
+            20% { 
+                transform: scale(1.1) rotate(2deg);
+            }
+            30% { 
+                transform: scale(1.15) rotate(-3deg);
+            }
+            40% { 
+                transform: scale(1.2) rotate(3deg);
+            }
+            50% { 
+                transform: scale(1.25) rotate(-4deg);
+            }
+            60% { 
+                transform: scale(1.3) rotate(4deg);
+            }
+            70% { 
+                transform: scale(1.35) rotate(-5deg);
+            }
+            80% { 
+                transform: scale(1.4) rotate(5deg);
+            }
+            90% { 
+                transform: scale(1.45) rotate(-6deg);
+            }
+            95% { 
+                transform: scale(1.5) rotate(0deg);
+                filter: brightness(1.2) contrast(1.1);
+            }
+            100% { 
+                transform: scale(1) rotate(0deg);
+                filter: brightness(1) contrast(1);
+            }
+        }
+
+        .popup-popcorn .popup-image {
+            animation: popcorn 2s ease-in-out infinite;
+            transform-origin: center center;
             border-color: #ff0000 !important;
             box-shadow: 0 0 10px rgba(255,0,0,0.5);
         }
@@ -1095,15 +1142,6 @@
             align-items: center;
             cursor: pointer;
             padding: 5px;
-            border-radius: 3px;
-            transition: background-color 0.2s;
-        }
-
-        .folder-item:hover {
-            background: #e1e1ff;
-        }
-
-        .folder-item:active {
             background: #316ac5;
             color: white;
         }
@@ -1549,36 +1587,104 @@
             margin-bottom: 15px;
         }
 
-        /* Chat Window Styles - FIXED */
+        /* Chat Window Styles - REAL-TIME CHAT */
 .chat-window {
     width: 450px;
-    height: 650px; /* Increased height to give more space for input */
+    height: 650px;
     background: #ece9d8;
 }
 
 .chat-window-content {
     background: #ece9d8;
-    height: calc(100% - 25px); /* Account for titlebar */
+    height: calc(100% - 25px);
     padding: 5px;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Prevent scrollbars on container */
+    overflow: hidden;
 }
 
-.chat-iframe-container {
+.chat-messages {
     flex: 1;
     border: 1px inset #d4d0c8;
     background: white;
-    overflow: visible;
-    min-height: 400px; /* Ensure minimum height for input area */
+    overflow-y: auto;
+    padding: 10px;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+    min-height: 400px;
 }
 
-.chat-iframe-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: white;
-    min-height: 400px; /* Ensure iframe has enough height */
+.chat-message {
+    margin-bottom: 8px;
+    padding: 4px;
+    border-radius: 3px;
+    word-wrap: break-word;
+}
+
+.chat-message.own {
+    background: #e6f3ff;
+    text-align: right;
+}
+
+.chat-message.other {
+    background: #f0f0f0;
+}
+
+.chat-message.system {
+    background: #fff2cc;
+    font-style: italic;
+    text-align: center;
+    color: #666;
+}
+
+.chat-username {
+    font-weight: bold;
+    color: #0066cc;
+}
+
+.chat-timestamp {
+    font-size: 9px;
+    color: #999;
+    margin-left: 5px;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px inset #d4d0c8;
+    background: #f0f0f0;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 4px;
+    border: 1px inset #d4d0c8;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+}
+
+.chat-input-area button {
+    padding: 4px 12px;
+    border: 1px outset #d4d0c8;
+    background: #ece9d8;
+    cursor: pointer;
+    font-family: Tahoma, sans-serif;
+    font-size: 11px;
+}
+
+.chat-input-area button:hover {
+    background: #ddd6c8;
+}
+
+.chat-status {
+    padding: 3px 5px;
+    font-size: 9px;
+    color: #666;
+    background: #f0f0f0;
+    border: 1px inset #d4d0c8;
+    margin-top: 2px;
 }
 
         .media-player-content {
@@ -1982,13 +2088,30 @@ body {
 </style>
 <script src="https://iframe.chat/scripts/main.min.js"></script>
 <link rel="icon" type="image/gif" href="favicon.gif">
+<style>
+/* Fond d'écran global (wallpaper) */
+body {
+        background-image: url('images/wall.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Si le site utilise un overlay CRT, laissez-le visible */
+.crt-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+</style>
 </head>
 <body>
 <div class="crt-overlay"></div>
 <!-- Price ticker -->
 <div class="price-ticker">
 <div class="ticker-content">
-            🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙 🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙 🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙 🚀 404Arab 🚀 CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 DIAMOND HANDS ONLY 💎 TO THE MOON HABIBI 🌙
+            *️ SalamShalom *️ CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 PEACE & LOVE 💎 TO THE STARS FRIENDS * *️ SalamShalom *️ CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 PEACE & LOVE 💎 TO THE STARS FRIENDS * *️ SalamShalom *️ CURRENT PRICE: $0.001337 📈 +420.69% 📊 MARKET CAP: $42M 💎 PEACE & LOVE 💎 TO THE STARS FRIENDS *
         </div>
 </div>
 <div class="desktop">
@@ -2034,7 +2157,7 @@ body {
 <!-- Main Browser Window -->
 <div class="window hidden" id="mainWindow" style="top: 50px; left: 50%; transform: translateX(-50%); width: 1000px; height: 700px;">
 <div class="window-titlebar">
-<span>🌐 Internet Explorer 6 - 404Arab Official Website</span>
+<span>🌐 Internet Explorer 6 - SalamShalom Official Website 🕊️</span>
 <div class="window-controls">
 <div class="window-control">_</div>
 <div class="window-control">□</div>
@@ -2063,17 +2186,17 @@ body {
 </div>
 <div class="address-bar-container">
 <span class="address-label">Address:</span>
-<input class="address-bar" onclick="this.select()" readonly="" type="text" value="http://www.404arab.top"/>
+<input class="address-bar" onclick="this.select()" readonly="" type="text" value="http://www.salamshalom.peace"/>
 <button class="go-btn" onclick="showNotification('Already at this page!')">Go</button>
 </div>
 </div>
 <!-- Favorites Bar -->
 <div class="favorites-bar">
 <span class="favorites-label">Links:</span>
-<a class="favorite-link" href="https://x.com/404Arab" onclick="showNotification('MSN Hotmail - 0 new messages')">📧 Hotmail</a>
+<a class="favorite-link" href="https://x.com/DevOrcus" onclick="showNotification('MSN Hotmail - 0 new messages')">📧 Hotmail</a>
 <a class="favorite-link" href="index.html#" onclick="showNotification('Napster is currently offline')">🎵 Napster</a>
 <a class="favorite-link" href="index.html#" onclick="showNotification('MySpace: A place for friends (and viruses)')">👥 MySpace</a>
-<a class="favorite-link" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" onclick="showConnectWalletDialog()">💰 FREE MONEY!</a>
+<a class="favorite-link" href="#" onclick="showFuckYouMessage(); return false;">💰 FREE MONEY!</a>
 </div>
 <!-- Browser Content Area -->
 <div class="browser-content">
@@ -2083,7 +2206,7 @@ body {
 <div class="header-banner">
 <div class="spinning-logo">💰</div>
 <div class="site-title">
-<h1>404Arab</h1>
+<h1>SalamShalom</h1>
 <div class="subtitle">🚀 TO THE MOON HABIBI! 🌙</div>
 </div>
 <div class="visitor-counter">
@@ -2092,7 +2215,7 @@ body {
 </div>
 <div class="scrolling-text">
 <marquee direction="left" scrollamount="3">
-              🔥 FULL FUNNY PUNJABI MOVIE 2017 🔥 FREE DOWNLOAD 🔥 NOT FINANCIAL ADVICE 🔥 HOTTEST SAUDI COIN 2020 🔥 HALAL TRADING TIPS 🔥
+              ⭐ SALAMSHALOM COMMUNITY ⭐ ALL WELCOME HERE ⭐ DIVERSITY CELEBRATION ⭐ FRIENDSHIP OVER CONFLICT ⭐ UNITY IN DIFFERENCE ⭐
             </marquee>
 </div>
 </div>
@@ -2108,13 +2231,7 @@ body {
 </div>
 </div>
 </div>
-<div class="retro-section">
-<h2 class="section-title">💹 Trading</h2>
-<div class="trading-buttons">
-<a class="retro-button buy-button" href="https://jup.ag/swap?sell=So11111111111111111111111111111111111111112&buy=3WfpTHGKkfXag5SicADtGPnwvvcpm8saE3hWvAychmvS" target="_blank">🪙 Buy SVIRUS</a>
-<a class="retro-button chart-button" href="https://dexscreener.com/solana/h5svwe6y8d26cerzzwj4nggezw2evnsrtfj777propkc" target="_blank">📊 View Chart</a>
-</div>
-</div>
+
 <div class="retro-section">
 <h2 class="section-title">📊 Tokenomics</h2>
 <img alt="Tokenomics Chart" src="images/GvBN57PXgAAj8Wk.jpg" style="width: 100%; max-width: 100%; border: 2px solid #000;"/>
@@ -2127,7 +2244,7 @@ body {
 <div class="retro-section">
 <h2 class="section-title">🔗 Important Links</h2>
 <div class="link-list">
-<a class="retro-link" href="https://x.com/404Arab" target="_blank">🐦 Twitter</a>
+<a class="retro-link" href="https://x.com/SalamShalom" target="_blank">🐦 Twitter</a>
 <a class="retro-link" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" target="_blank">🤖 Pump.fun</a>
 <a class="retro-link" href="hhttps://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" target="_blank">❓ Wiki</a>
 <a class="retro-link blink" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" onclick="showConnectWalletDialog()">💰 FREE AIRDROP!</a>
@@ -2139,7 +2256,7 @@ body {
 <h2 class="section-title">📰 Latest News</h2>
 <div class="news-item">
 <div class="news-date">Today, 4:20 PM</div>
-<div class="news-title">404Arab hits new ATH!</div>
+<div class="news-title">SalamShalom hits new ATH!</div>
 <div class="news-text">Mashallah brothers! We just hit 5k MCAP! Inshallah we're going to the moon! 🚀</div>
 </div>
 <div class="news-item">
@@ -2429,8 +2546,16 @@ body {
 </div>
 </div>
 <div class="chat-window-content">
-<div class="chat-iframe-container">
-<iframe frameborder="0" id="chattable" src="https://iframe.chat/embed?chat=42980989"></iframe>
+<div class="chat-messages" id="chatMessages">
+<!-- Les messages apparaîtront ici -->
+</div>
+<div class="chat-input-area">
+<input type="text" id="chatInput" placeholder="Type your message... (press Enter)" maxlength="200">
+<button onclick="sendMessage()">Send</button>
+</div>
+<div class="chat-status">
+<span id="onlineCount">🟢 1 online</span>
+<span style="margin-left: 10px;">💬 SalamShalom Chat</span>
 </div>
 </div>
 </div>
@@ -2438,13 +2563,35 @@ body {
         // ===== POPUP AD CONFIGURATION =====
         // 🎯 CUSTOMIZE YOUR POPUP ADS HERE!
         
+        // Stocke le nombre de fois que chaque popup a été fermé
+        const popupCloseCount = {};
+        const popupAppearanceCount = {};
+
+        // Vérifie si un popup peut encore apparaître (moins de 3 fermetures)
+        function canPopupAppear(adTitle) {
+            return !popupCloseCount[adTitle] || popupCloseCount[adTitle] < 3;
+        }
+
+        // Mise à jour du compteur de fermetures
+        function updatePopupCloseCount(adTitle) {
+            popupCloseCount[adTitle] = (popupCloseCount[adTitle] || 0) + 1;
+            console.log(`${adTitle} fermé ${popupCloseCount[adTitle]} fois`);
+            return popupCloseCount[adTitle] >= 3;
+        }
+
+        // Fonction pour traquer les apparitions
+        function trackAdAppearance(adTitle) {
+            popupAppearanceCount[adTitle] = (popupAppearanceCount[adTitle] || 0) + 1;
+            console.log(`${adTitle} est apparu ${popupAppearanceCount[adTitle]} fois`);
+        }
+
         const POPUP_CONFIG = {
             // Global Settings
             enabled: true,                    // Enable/disable all popups
             maxPopups: 5,                    // Maximum simultaneous popups
             minInterval: 100,               // Minimum time between popups (ms)
             maxInterval: 1000,               // Maximum time between popups (ms)
-            autoCloseTime: 10000,             // Auto-close time (ms), set to 0 to disable
+            autoCloseTime: 0,                // Désactive la fermeture automatique
             urgentShakeChance: 1,          // Probability of urgent shaking (0-1)
             
             // Positioning
@@ -2463,128 +2610,269 @@ body {
         // 5. Adjust 'weight' (higher = appears more often)
         
         const POPUP_ADS = [
+            // Images du dossier images uniquement, une seule fois chacune
             {
-                title: '🎰 MEGA JACKPOT WINNER! 🎰',
-                image: 'images/32.jpeg', // Replace with your image URL
-                width: 400, // Optional: set custom width
-                height: 505, // Optional: set custom height
-                urgent: true,
-                weight: 1
-            },
-             {
-                title: '🎰 MEGA JACKPOT WINNER! 🎰',
-                image: 'images/33.webp', // Replace with your image URL
-                width: 350, // Optional: set custom width
-                height: 505, // Optional: set custom height
-                urgent: true,
-                weight: 1
-            }, 
-            {
-                title: '🎰 MEGA JACKPOT WINNER! 🎰',
-                image: 'images/34.webp', // Replace with your image URL
-                width: 505, // Optional: set custom width
-                height: 505, // Optional: set custom height
-                urgent: true,
-                weight: 1
-            },
-            {
-                title: '🔥 HOT CRYPTO SINGLES! 🔥',
-                image: 'images/crypto singles.gif', // Replace with your image URL
-                width: 350,
-                height: 505,
-                urgent: false,
-                weight: 1
-            },
-            {
-                title: '⚠️ SVIRUS DETECTED! ⚠️',
-                image: 'images/ad1.png', // Replace with your image URL
+                title: '😂 Yallah',
+                image: 'images/Yallah.jpeg',
                 width: 500,
-                height: 505,
-                urgent: true,
-                weight: 1
+                height: 400,
+                urgent: true,  // Toujours visible
+                weight: 3      // Égalisé avec les autres
             },
             {
-                title: '✅RMINATOR 2 FREE DOWNLOAD URD 2006',
-                image: 'images/TERMINATOR.gif', // Replace with your image URL
-                width: 505,
-                height: 360,
-                urgent: false,
-                weight: 1
+                title: '🐷 PORK 🐷',
+                image: 'images/PORK.jpeg',
+                width: 500,
+                height: 400,
+                urgent: true,  // Toujours visible
+                weight: 3      // Égalisé avec les autres
             },
+            // Images ajoutées automatiquement depuis le dossier images/ (noms originaux)
             {
-                title: '🚨 FBI WARNING! 🚨',
-                image: 'images/atheist.gif', // Replace with your image URL
-                width: 350,
-                height: 470,
-                urgent: true,
-                weight: 1
-            },
-            {
-                title: '🎮 FREE GAMES! 🎮',
-                image: 'images/ad4.png', // Replace with your image URL
-                width: 280,
+                title: '📷 Photo 1',
+                image: 'images/photo1.jpeg',
+                width: 500,
                 height: 400,
                 urgent: false,
-                weight: 1
+                weight: 3      // Égalise le poids avec les autres
             },
             {
-                title: '🏆 CONTEST WINNER! 🏆',
-                image: 'images/ad5.png', // Replace with your image URL
-                width: 370,
-                height: 510,
-                urgent: false,
-                weight: 2
-            },
-            {
-                title: 'Skype - Allah Calling',
-                image: 'images/skype.png', // Replace with your image URL
-                width: 666,
-                height: 171,
-                urgent: true,
-                weight: 1
-            },
-            {
-                title: 'تم القبض على سبونجبوب في المسجد مع زنجي ',
-                image: 'images/jlbnfmbx95af1.png', // Replace with your image URL
+                title: '📷 Photo 2',
+                image: 'images/photo2.jpeg',
                 width: 500,
-                height: 500,
+                height: 400,
                 urgent: false,
-                weight: 2
+                weight: 3,
+                group: 'photos_group',  // Groupe avec les photos 3,4,5
+                groupDelay: 0          // Premier du groupe
             },
             {
-                title: 'أنا أحب الفتيات اليونانيات الصغيرات 😂😂😂',
-                image: 'images/D542fwie9t231.webp', // Replace with your image URL
-                width: 370,
-                height: 510,
-                urgent: false,
-                weight: 2
-            },
-            {
-                title: '🏆😠😠😡😡 EPIC PUNJABI TROLL 240p',
-                image: 'images/Artworks-dkV2DsjCeLxNVH8g-HLzvPw-t500x500.webp', // Replace with your image URL
+                title: '📷 Photo 3',
+                image: 'images/photo3.jpeg',
                 width: 500,
-                height: 500,
+                height: 400,
                 urgent: false,
-                weight: 2
+                weight: 3,
+                group: 'photos_group',  // Groupe avec les photos 2,4,5
+                groupDelay: 500        // 0.5s après le premier
             },
+            {
+                title: '📷 Photo 4',
+                image: './images/photo4.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3,
+                group: 'photos_group',   // Groupe avec les photos 2,3,5
+                groupDelay: 1000        // 1s après le premier
+            },
+            {
+                title: '📷 Photo 5',
+                image: './images/photo5.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3,
+                group: 'photos_group',  // Groupe avec les photos 2,3,4
+                groupDelay: 1500       // 1.5s après le premier
+            },
+            {
+                title: '📝 Exam meme',
+                image: 'images/exam_meme.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Plus de chances d'apparaître
+            },
+            {
+                title: '🖼️ Group photo',
+                image: 'images/group_photo1.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Plus de chances d'apparaître
+            },
+            {
+                title: '😂 Meme',
+                image: 'images/meme_other.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '🐷 PORK 🐷',
+                image: 'images/PORK.jpeg',
+                width: 500,
+                height: 400,
+                urgent: true,  // Toujours visible
+                weight: 3      // Égalisé avec les autres
+            },
+            // Nouvelles images ajoutées
+            {
+                title: '🖼️ Image 1',
+                image: 'images/_ (1).jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🖼️ Image 2',
+                image: 'images/_ (2).jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🍿 Image 3 POP! 🍿',
+                image: 'images/_ (3).jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3,
+                animation: 'popcorn'    // Animation pop-corn !
+            },
+            {
+                title: '🖼️ Image 4',
+                image: 'images/_ (4).jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🖼️ Image 5',
+                image: 'images/_ (5).jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🎨 Photo A',
+                image: 'images/a4334e90-a993-4ca0-9bd8-91ee33d8d85d.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🎨 Photo B',
+                image: 'images/ac4034a2-7bdf-4ade-ac7c-3dd29480f259.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            // Wallpapers supprimés des popups
         ];
 
+        // Prioritize specific imported images so they appear first in rotation, in a defined order.
+        (function prioritizeImportedPopups() {
+            try {
+                const desiredFirst = [
+                    'images/exam_meme.jpeg',
+                    'images/group_photo1.jpeg',
+                    'images/meme_other.jpeg'
+                ];
+
+                // Split into three buckets: desired first (in order), other imported images, and others
+                const desired = [];
+                const otherImported = [];
+                const others = [];
+
+                for (const ad of POPUP_ADS) {
+                    if (ad.image && desiredFirst.includes(ad.image)) {
+                        // ensure order by pushing into desired in correct slot
+                        desired.push(ad);
+                        continue;
+                    }
+                    if (ad.image && ad.image.startsWith('images/')) {
+                        otherImported.push(ad);
+                        continue;
+                    }
+                    others.push(ad);
+                }
+
+                // Rebuild POPUP_ADS: desired (in the same order as desiredFirst), then otherImported, then others
+                const orderedDesired = [];
+                for (const img of desiredFirst) {
+                    const found = desired.find(a => a.image === img);
+                    if (found) orderedDesired.push(found);
+                }
+
+                if (orderedDesired.length || otherImported.length) {
+                    POPUP_ADS.splice(0, POPUP_ADS.length, ...orderedDesired, ...otherImported, ...others);
+                }
+            } catch (e) {
+                console.error('Prioritize imported popups error', e);
+            }
+        })();
+
         // ===== POPUP SYSTEM CODE =====
+        // Affiche les trois images prioritaires séquentiellement au chargement, puis lance la rotation normale
+        window.addEventListener('DOMContentLoaded', function() {
+            const priorityImages = [
+                'exam_meme.jpeg',
+                'group_photo1.jpeg',
+                'meme_other.jpeg'
+            ];
+            for (const img of priorityImages) {
+                const ad = POPUP_ADS.find(a => a.image === img);
+                if (ad) createPopup(ad);
+            }
+            // Démarre la rotation normale après un court délai
+            setTimeout(function() {
+                if (typeof startPopupSystem === 'function') startPopupSystem();
+            }, 2000);
+        });
         let activePopups = 0;
         let popupTimeouts = [];
         let usedPositions = [];
 
         // Weighted random selection
-        function getRandomAd() {
+        // Séquence cyclique des popups
+        let popupSequenceIndex = 0;
+        let processedGroups = new Set(); // Pour éviter de déclencher le même groupe plusieurs fois
+        
+        function getNextAd() {
             playRandomPopupSound();
-            const totalWeight = POPUP_ADS.reduce((sum, ad) => sum + (ad.weight || 1), 0);
-            let random = Math.random() * totalWeight;
+            const availableAds = POPUP_ADS.filter(ad => canPopupAppear(ad.title));
+            if (availableAds.length === 0) return null;
             
-            for (const ad of POPUP_ADS) {
-                random -= (ad.weight || 1);
-                if (random <= 0) return ad;
+            // Avance dans la séquence
+            if (popupSequenceIndex >= availableAds.length) popupSequenceIndex = 0;
+            const ad = availableAds[popupSequenceIndex];
+            popupSequenceIndex++;
+            
+            // Si c'est un popup avec un groupe, déclencher tout le groupe
+            if (ad.group && !processedGroups.has(ad.group)) {
+                processedGroups.add(ad.group);
+                createGroupPopups(ad.group);
+                return null; // Ne pas créer le popup individuel
             }
-            return POPUP_ADS[0];
+            
+            return ad;
+        }
+        
+        // Fonction pour créer tous les popups d'un groupe ensemble
+        function createGroupPopups(groupName) {
+            const groupAds = POPUP_ADS.filter(ad => ad.group === groupName && canPopupAppear(ad.title));
+            
+            groupAds.forEach((ad, index) => {
+                const delay = ad.groupDelay || (index * 500); // 500ms par défaut entre chaque popup
+                setTimeout(() => {
+                    createPopup(ad);
+                    trackAdAppearance(ad.title);
+                }, delay);
+            });
+            
+            // Réinitialiser le groupe après un délai pour qu'il puisse réapparaître plus tard
+            setTimeout(() => {
+                processedGroups.delete(groupName);
+            }, 10000); // 10 secondes avant que le groupe puisse réapparaître
         }
 
         // Get position that doesn't overlap
@@ -2641,6 +2929,11 @@ body {
                 popup.classList.add('popup-urgent');
             }
             
+            // Apply animation styling
+            if (adData.animation) {
+                popup.classList.add('popup-' + adData.animation);
+            }
+            
             // Use specified dimensions or defaults
             const width = adData.width || 400;
             const height = adData.height || 300;
@@ -2688,7 +2981,18 @@ body {
         function createImagePopupContent(ad) {
             const width = ad.width || 400;
             const height = ad.height || 300;
-            
+            // Détermine la source de l'image : si c'est une URL absolue on l'utilise telle quelle,
+            // sinon on considère qu'il s'agit d'un fichier local relatif au projet.
+            let imgSrc = '';
+            if (ad.image) {
+                if (/^(https?:)?\/\//i.test(ad.image) || ad.image.startsWith('http')) {
+                    imgSrc = ad.image;
+                } else {
+                    // chemin relatif local : préfixer par './' pour compatibilité
+                    imgSrc = ad.image.startsWith('./') ? ad.image : ('./' + ad.image);
+                }
+            }
+
             return `
                 <div class="popup-titlebar">
                     <span>${ad.title}</span>
@@ -2696,7 +3000,7 @@ body {
                 </div>
                 <div class="popup-image-container" style="width: ${width}px; height: ${height}px;">
                     ${ad.image ? 
-                        `<img src="https://arabfunny.com/${ad.image}" alt="${ad.title}" class="popup-image" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" />` :
+                        `<img src="${imgSrc}" alt="${ad.title}" class="popup-image" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" />` :
                         `<div class="popup-image placeholder-image" style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 48px; cursor: pointer;">🖼️</div>`
                     }
                 </div>
@@ -2721,6 +3025,10 @@ body {
 
         function removePopup(popup) {
             if (popup && popup.parentElement) {
+                // Mettre à jour le compteur de fermetures
+                const title = popup.querySelector('.popup-titlebar span').textContent;
+                const isMaxed = updatePopupCloseCount(title);
+                
                 // Remove from used positions
                 const rect = popup.getBoundingClientRect();
                 usedPositions = usedPositions.filter(pos => 
@@ -2741,8 +3049,11 @@ body {
             
             const timeoutId = setTimeout(() => {
                 if (activePopups < POPUP_CONFIG.maxPopups) {
-                    const adData = getRandomAd();
-                    createPopup(adData);
+                    const adData = getNextAd();
+                    if (adData) {
+                        createPopup(adData);
+                        trackAdAppearance(adData.title);
+                    }
                 }
                 scheduleNextPopup();
             }, delay);
@@ -2955,7 +3266,7 @@ body {
         let currentVolume = 0.7;
 
         const habibiMessages = [
-            "Ahlan wa sahlan, habibi! Welcome to 404Arab! 🇸🇦",
+            "Shalom Aleichem & Salam Aleikoum! Welcome to SalamShalom! 🕊️",
             "Mashallah! This coin will take you to the moon, inshallah! 🌙",
             "Habibi, remember: diamond hands only! 💎",
             "Alhamdulillah! May your bags be blessed with gains! 📈",
@@ -3096,17 +3407,158 @@ body {
         }
 
         function openFolder() {
-            const folderWindow = document.getElementById('folderWindow');
-            if (folderWindow) {
-                folderWindow.classList.remove('hidden');
-                folderWindow.style.display = 'block';
-                folderWindow.style.visibility = 'visible';
-                folderWindow.style.position = 'fixed';
-                folderWindow.style.top = '80px';
-                folderWindow.style.left = '150px';
-                bringWindowToFront(folderWindow);
-                setupWindowClickHandlers();
+            // Au lieu d'ouvrir le dossier, afficher l'image haram en grand
+            showHaramImage();
+        }
+        
+        function showHaramImage() {
+            // Créer un overlay plein écran pour l'image
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                cursor: pointer;
+            `;
+            
+            // Ajouter un titre "HARAM" qui clignote
+            const title = document.createElement('div');
+            title.textContent = '🚫 HARAM CONTENT 🚫';
+            title.style.cssText = `
+                font-size: 48px;
+                color: #ff0000;
+                font-weight: bold;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+                animation: blink 0.5s infinite;
+                margin-bottom: 20px;
+            `;
+            
+            // Créer l'image avec gestion d'erreur
+            const img = document.createElement('img');
+            img.style.cssText = `
+                max-width: 80%;
+                max-height: 70%;
+                object-fit: contain;
+                border: 3px solid #ff0000;
+                box-shadow: 0 0 20px rgba(255,0,0,0.5);
+                background: #222;
+            `;
+            
+            // Essayer plusieurs sources d'images
+            const imageSources = [
+                'images/haram_image.jpg',
+                'images/_ (3).jpeg',  // Fallback - votre image avec animation pop-corn
+                'images/PORK.jpeg',  // Autre fallback
+                'images/photo1.jpeg'  // Dernier fallback
+            ];
+            
+            let currentIndex = 0;
+            
+            function tryLoadImage() {
+                if (currentIndex < imageSources.length) {
+                    img.src = imageSources[currentIndex];
+                    img.onload = function() {
+                        // Image chargée avec succès
+                        console.log('Image loaded successfully:', imageSources[currentIndex]);
+                    };
+                    img.onerror = function() {
+                        console.log('Failed to load:', imageSources[currentIndex]);
+                        currentIndex++;
+                        tryLoadImage();
+                    };
+                } else {
+                    // Si aucune image ne se charge, afficher un placeholder
+                    img.style.display = 'none';
+                    const placeholder = document.createElement('div');
+                    placeholder.style.cssText = `
+                        width: 400px;
+                        height: 300px;
+                        background: #333;
+                        border: 3px solid #ff0000;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 24px;
+                        color: #ff0000;
+                    `;
+                    placeholder.textContent = '🚫 HARAM IMAGE 🚫';
+                    overlay.appendChild(placeholder);
+                }
             }
+            
+            tryLoadImage();
+            
+            overlay.appendChild(title);
+            overlay.appendChild(img);
+            
+            // Fermer en cliquant n'importe où
+            overlay.addEventListener('click', () => {
+                document.body.removeChild(overlay);
+            });
+            
+            document.body.appendChild(overlay);
+            
+            // Jouer un son d'alerte si disponible
+            playRandomPopupSound();
+        }
+
+        function showFuckYouMessage() {
+            // Créer un overlay plein écran pour le message
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0,0,0,0.95);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                cursor: pointer;
+            `;
+            
+            // Créer le message "FUCK YOU!"
+            const message = document.createElement('div');
+            message.textContent = 'FUCK YOU!';
+            message.style.cssText = `
+                font-size: 120px;
+                color: #ff0000;
+                font-weight: bold;
+                text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
+                animation: blink 0.3s infinite;
+                font-family: Impact, Arial, sans-serif;
+                text-align: center;
+                letter-spacing: 10px;
+            `;
+            
+            overlay.appendChild(message);
+            
+            // Fermer en cliquant n'importe où
+            overlay.addEventListener('click', () => {
+                document.body.removeChild(overlay);
+            });
+            
+            // Fermer automatiquement après 3 secondes
+            setTimeout(() => {
+                if (document.body.contains(overlay)) {
+                    document.body.removeChild(overlay);
+                }
+            }, 3000);
+            
+            document.body.appendChild(overlay);
+            
+            // Jouer un son d'alerte
+            playRandomPopupSound();
         }
 
         // Media Player Functions
@@ -3804,7 +4256,210 @@ body {
                 chatWindow.style.left = '100px';
                 bringWindowToFront(chatWindow);
                 setupWindowClickHandlers();
+                initializeChat();
             }
+        }
+
+        // ===== REAL-TIME CHAT SYSTEM =====
+        let chatMessages = [];
+        let currentUser = 'Anonymous' + Math.floor(Math.random() * 1000);
+        let onlineUsers = 1;
+
+        function initializeChat() {
+            // Charger les messages sauvegardés
+            loadChatMessages();
+            
+            // Ajouter message de bienvenue
+            addSystemMessage('Welcome to SalamShalom Chat! 🕊️');
+            addSystemMessage(`You joined as ${currentUser}`);
+            
+            // Setup enter key pour envoyer
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+            
+            // Simuler des utilisateurs en ligne
+            updateOnlineCount();
+            
+            // Ajouter quelques messages d'exemple s'il n'y en a pas
+            if (chatMessages.length === 0) {
+                addSampleMessages();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Vérifier les commandes spéciales
+            if (message.toLowerCase().startsWith('/name ')) {
+                const newName = message.substring(6).trim();
+                if (newName) {
+                    const oldName = currentUser;
+                    currentUser = newName;
+                    addSystemMessage(`${oldName} changed name to ${currentUser}`);
+                }
+                input.value = '';
+                return;
+            }
+            
+            // Ajouter le message
+            const messageObj = {
+                username: currentUser,
+                message: message,
+                timestamp: new Date().toLocaleTimeString(),
+                isOwn: true
+            };
+            
+            addMessage(messageObj);
+            input.value = '';
+            
+            // Sauvegarder dans localStorage
+            saveChatMessages();
+            
+            // Simuler une réponse automatique parfois
+            if (Math.random() < 0.3) {
+                setTimeout(() => {
+                    generateAutoResponse();
+                }, 1000 + Math.random() * 3000);
+            }
+        }
+
+        function addMessage(messageObj) {
+            chatMessages.push(messageObj);
+            
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message ' + (messageObj.isOwn ? 'own' : 'other');
+            
+            messageDiv.innerHTML = `
+                <span class="chat-username">${messageObj.username}:</span>
+                ${escapeHtml(messageObj.message)}
+                <span class="chat-timestamp">${messageObj.timestamp}</span>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Limiter à 50 messages max
+            if (chatMessages.length > 50) {
+                chatMessages = chatMessages.slice(-50);
+                messagesContainer.removeChild(messagesContainer.firstChild);
+            }
+        }
+
+        function addSystemMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message system';
+            messageDiv.innerHTML = `${escapeHtml(message)}`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function generateAutoResponse() {
+            const responses = [
+                "Shalom! 🕊️",
+                "Salam aleikum! ☪️",
+                "Peace be with you! ✡️",
+                "Anyone seen the FREE MONEY? 💰",
+                "This site is HARAM but I love it 😂",
+                "Jews and Arabs united! 🤝",
+                "TO THE MOON HABIBI! 🚀🌙",
+                "Mashallah, this chat is halal 🙏",
+                "Oy vey, such chaos here 😅",
+                "Coexistence is possible! 🕊️",
+                "Someone clicked the HARAM folder again 🚫"
+            ];
+            
+            const usernames = [
+                'AbuMohammad', 'DavidCohen', 'FatimahX', 'MoisheG', 'AishaP', 
+                'YakubAl', 'RacheldBT', 'OmarTech', 'SarahL', 'HassanCrypto'
+            ];
+            
+            const messageObj = {
+                username: usernames[Math.floor(Math.random() * usernames.length)],
+                message: responses[Math.floor(Math.random() * responses.length)],
+                timestamp: new Date().toLocaleTimeString(),
+                isOwn: false
+            };
+            
+            addMessage(messageObj);
+            saveChatMessages();
+        }
+
+        function addSampleMessages() {
+            const samples = [
+                { username: 'AdminBot', message: 'Welcome to SalamShalom Chat! Please be respectful 🕊️', isOwn: false },
+                { username: 'YakubCrypto', message: 'TO THE MOON! 🚀', isOwn: false },
+                { username: 'PeaceMaker', message: 'Jews and Arabs can coexist in peace ✌️', isOwn: false }
+            ];
+            
+            samples.forEach(sample => {
+                sample.timestamp = new Date().toLocaleTimeString();
+                addMessage(sample);
+            });
+        }
+
+        function updateOnlineCount() {
+            onlineUsers = 1 + Math.floor(Math.random() * 15); // Simuler 1-16 utilisateurs
+            const onlineElement = document.getElementById('onlineCount');
+            if (onlineElement) {
+                onlineElement.textContent = `🟢 ${onlineUsers} online`;
+            }
+            
+            // Mettre à jour toutes les 30 secondes
+            setTimeout(updateOnlineCount, 30000);
+        }
+
+        function saveChatMessages() {
+            try {
+                localStorage.setItem('salamshalom_chat', JSON.stringify(chatMessages.slice(-20))); // Garder seulement 20 messages
+            } catch (e) {
+                console.log('Could not save chat messages');
+            }
+        }
+
+        function loadChatMessages() {
+            try {
+                const saved = localStorage.getItem('salamshalom_chat');
+                if (saved) {
+                    chatMessages = JSON.parse(saved);
+                    chatMessages.forEach(msg => {
+                        msg.isOwn = false; // Tous les messages chargés sont considérés comme "autres"
+                        addMessageToDisplay(msg);
+                    });
+                }
+            } catch (e) {
+                console.log('Could not load chat messages');
+            }
+        }
+
+        function addMessageToDisplay(messageObj) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message ' + (messageObj.isOwn ? 'own' : 'other');
+            
+            messageDiv.innerHTML = `
+                <span class="chat-username">${messageObj.username}:</span>
+                ${escapeHtml(messageObj.message)}
+                <span class="chat-timestamp">${messageObj.timestamp}</span>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         // Keyboard navigation for image viewer

@@ -1,0 +1,90 @@
+        const POPUP_ADS = [
+            // Images du dossier images uniquement, une seule fois chacune
+            {
+                title: '✂️ CIRCUMCISION ✂️',
+                image: 'images/circumcision.jpeg',
+                width: 500,
+                height: 400,
+                urgent: true,  // Toujours visible
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '😂 Yallah',
+                image: 'images/Yallah.jpeg',
+                width: 500,
+                height: 400,
+                urgent: true,  // Toujours visible
+                weight: 3      // Plus de chances d'apparaître
+            },
+            {
+                title: '🐷 PORK 🐷',
+                image: 'images/PORK.jpeg',
+                width: 500,
+                height: 400,
+                urgent: true,  // Toujours visible
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '📝 Exam meme',
+                image: 'images/exam_meme.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '🖼️ Group photo',
+                image: 'images/group_photo1.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '😂 Meme',
+                image: 'images/meme_other.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '📷 Photo 1',
+                image: 'images/photo1.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '📷 Photo 2',
+                image: 'images/photo2.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '📷 Photo 3',
+                image: 'images/photo3.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '📷 Photo 4',
+                image: 'images/photo4.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,  // Pas urgent
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '📷 Photo 5',
+                image: 'images/photo5.jpeg',
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
