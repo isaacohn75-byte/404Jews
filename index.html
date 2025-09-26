@@ -2633,79 +2633,6 @@ body {
             },
             // Images ajoutées automatiquement depuis le dossier images/ (noms originaux)
             {
-                title: '📷 Photo 1',
-                image: 'images/photo1.jpeg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 3      // Égalise le poids avec les autres
-            },
-            {
-                title: '📷 Photo 2',
-                image: 'images/photo2.jpeg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 3,
-                group: 'photos_group',  // Groupe avec les photos 3,4,5
-                groupDelay: 0          // Premier du groupe
-            },
-            {
-                title: '📷 Photo 3',
-                image: 'images/photo3.jpeg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 3,
-                group: 'photos_group',  // Groupe avec les photos 2,4,5
-                groupDelay: 500        // 0.5s après le premier
-            },
-            {
-                title: '📷 Photo 4',
-                image: 'images/photo4.jpeg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 3,
-                group: 'photos_group',   // Groupe avec les photos 2,3,5
-                groupDelay: 1000        // 1s après le premier
-            },
-            {
-                title: '📷 Photo 5',
-                image: 'images/photo5.jpeg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 3,
-                group: 'photos_group',  // Groupe avec les photos 2,3,4
-                groupDelay: 1500       // 1.5s après le premier
-            },
-            {
-                title: '📝 Exam meme',
-                image: 'images/exam_meme.jpeg',
-                width: 600,
-                height: 400,
-                urgent: false,
-                weight: 3      // Plus de chances d'apparaître
-            },
-            {
-                title: '🖼️ Group photo',
-                image: 'images/group_photo1.jpeg',
-                width: 600,
-                height: 400,
-                urgent: false,
-                weight: 3      // Plus de chances d'apparaître
-            },
-            {
-                title: '😂 Meme',
-                image: 'images/meme_other.jpeg',
-                width: 600,
-                height: 400,
-                urgent: false,
-                weight: 3      // Égalisé avec les autres
-            },
-            // Nouvelles images ajoutées
-            {
                 title: '🖼️ Image 1',
                 image: 'images/img1.jpg',
                 width: 500,
@@ -2747,6 +2674,80 @@ body {
                 weight: 3
             },
             {
+                title: '📝 Exam meme',
+                image: 'images/exam_meme.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Plus de chances d'apparaître
+            },
+            {
+                title: '🖼️ Group photo',
+                image: 'images/group_photo1.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Plus de chances d'apparaître
+            },
+            {
+                title: '😂 Meme',
+                image: 'images/meme_other.jpeg',
+                width: 600,
+                height: 400,
+                urgent: false,
+                weight: 3      // Égalisé avec les autres
+            },
+            {
+                title: '🐷 PORK 🐷',
+                image: 'images/PORK.jpeg',
+                width: 500,
+                height: 400,
+                urgent: true,  // Toujours visible
+                weight: 3      // Égalisé avec les autres
+            },
+            // Nouvelles images ajoutées
+            {
+                title: '🖼️ Image 1',
+                image: 'images/_%20(1).jpeg',  // Encodage URL pour les espaces
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🖼️ Image 2',
+                image: 'images/_%20(2).jpeg',  // Encodage URL pour les espaces
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🍿 Image 3 POP! 🍿',
+                image: 'images/_%20(3).jpeg',  // Encodage URL pour les espaces
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3,
+                animation: 'popcorn'    // Animation pop-corn !
+            },
+            {
+                title: '🖼️ Image 4',
+                image: 'images/_%20(4).jpeg',  // Encodage URL pour les espaces
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
+                title: '🖼️ Image 5',
+                image: 'images/_%20(5).jpeg',  // Encodage URL pour les espaces
+                width: 500,
+                height: 400,
+                urgent: false,
+                weight: 3
+            },
+            {
                 title: '🎨 Photo A',
                 image: 'images/a4334e90-a993-4ca0-9bd8-91ee33d8d85d.jpeg',
                 width: 500,
@@ -2765,68 +2766,12 @@ body {
             // Wallpapers supprimés des popups
         ];
 
-        // Normalisation des chemins d'images (supprimer éventuel préfixe './')
-        POPUP_ADS.forEach(ad => {
-            if (ad.image && ad.image.startsWith('./')) {
-                ad.image = ad.image.slice(2);
-            }
-        });
-
         // Prioritize specific imported images so they appear first in rotation, in a defined order.
         (function prioritizeImportedPopups() {
             try {
                 const desiredFirst = [
                     'images/exam_meme.jpeg',
                     'images/group_photo1.jpeg',
-            // === Images ajoutées depuis la racine (sous-vêtements / portraits) ===
-            {
-                title: '📸 Portrait A',
-                image: 'hijab_soles_close_up_by_feetarchive99_djs37sh-414w.jpg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 2
-            },
-            {
-                title: '📸 Portrait B',
-                image: '3d4a42530a14f5eb20d7ac4ad93a310b_low.webp',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 2
-            },
-            {
-                title: '📸 Portrait C',
-                image: 'D542fwie9t231.webp',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 2
-            },
-            {
-                title: '📸 Portrait D',
-                image: '4ff780779bc06a3982828305c9ffeb74.jpg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 2
-            },
-            {
-                title: '📸 Portrait E',
-                image: 'rfc5sysp4he71.jpg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 2
-            },
-            {
-                title: '📸 Portrait F',
-                image: 'untitled_by_celal74500_dhuxe79-fullview.jpg',
-                width: 500,
-                height: 400,
-                urgent: false,
-                weight: 2
-            },
                     'images/meme_other.jpeg'
                 ];
 
@@ -2867,13 +2812,13 @@ body {
         // Affiche les trois images prioritaires séquentiellement au chargement, puis lance la rotation normale
         window.addEventListener('DOMContentLoaded', function() {
             const priorityImages = [
-                'images/exam_meme.jpeg',
-                'images/group_photo1.jpeg',
-                'images/meme_other.jpeg'
+                'exam_meme.jpeg',
+                'group_photo1.jpeg',
+                'meme_other.jpeg'
             ];
             for (const img of priorityImages) {
-                const ad = POPUP_ADS.find(a => a.image === img || a.image.endsWith('/'+img) || a.image.endsWith(img.replace('images/','')));
-                if (ad) createPopup(ad); else console.warn('Priority popup introuvable:', img);
+                const ad = POPUP_ADS.find(a => a.image === img);
+                if (ad) createPopup(ad);
             }
             // Démarre la rotation normale après un court délai
             setTimeout(function() {
@@ -3044,33 +2989,15 @@ body {
                     imgSrc = ad.image.startsWith('./') ? ad.image : ('./' + ad.image);
                 }
             }
-            const idSuffix = Math.random().toString(36).slice(2,9);
-            const imgId = `popup_img_${idSuffix}`;
-            const containerId = `popup_container_${idSuffix}`;
-            setTimeout(()=>{
-                const el = document.getElementById(imgId);
-                if (el) {
-                    el.addEventListener('error', () => {
-                        console.warn('Image FAILED:', imgSrc, '-> showing placeholder');
-                        const c = document.getElementById(containerId);
-                        if (c) {
-                            c.innerHTML = `<div class="popup-image placeholder-image" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:18px;text-align:center;padding:6px;background:#222;color:#ff4444;">Image not found\n${ad.image}</div>`;
-                        }
-                    });
-                    el.addEventListener('load', () => {
-                        console.log('Image OK:', imgSrc, el.naturalWidth+'x'+el.naturalHeight);
-                    });
-                }
-            },0);
 
             return `
                 <div class="popup-titlebar">
                     <span>${ad.title}</span>
                     <div class="popup-close">×</div>
                 </div>
-                <div class="popup-image-container" id="${containerId}" style="width: ${width}px; height: ${height}px;">
+                <div class="popup-image-container" style="width: ${width}px; height: ${height}px;">
                     ${ad.image ? 
-                        `<img id="${imgId}" src="${imgSrc}" alt="${ad.title}" class="popup-image" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer; background:#111;" />` :
+                        `<img src="${imgSrc}" alt="${ad.title}" class="popup-image" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" />` :
                         `<div class="popup-image placeholder-image" style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 48px; cursor: pointer;">🖼️</div>`
                     }
                 </div>
@@ -3522,32 +3449,29 @@ body {
                 background: #222;
             `;
             
-            // Image principale HARAM
-            const primaryHaram = 'images/haram_image.jpg';
-            const fallbackHaram = 'images/_%20(3).jpeg';
-            img.src = primaryHaram;
-            img.onload = () => console.log('HARAM image loaded:', primaryHaram);
-            img.onerror = () => {
-                console.warn('Primary HARAM image failed, fallback to', fallbackHaram);
-                img.onerror = () => {
-                    console.error('Fallback HARAM image also failed');
-                    img.style.display = 'none';
-                    const placeholder = document.createElement('div');
-                    placeholder.style.cssText = `
-                        width: 400px;
-                        height: 300px;
-                        background: #333;
-                        border: 3px solid #ff0000;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 24px;
-                        color: #ff0000;
-                    `;
-                    placeholder.textContent = '🚫 HARAM IMAGE NOT FOUND 🚫';
-                    overlay.appendChild(placeholder);
-                };
-                img.src = fallbackHaram;
+            // Utiliser directement l'image _ (3).jpeg avec encodage URL
+            img.src = 'images/_%20(3).jpeg';
+            img.onload = function() {
+                console.log('HARAM image loaded successfully: _ (3).jpeg');
+            };
+            img.onerror = function() {
+                console.log('Failed to load HARAM image: _ (3).jpeg');
+                // En cas d'erreur, afficher un message d'erreur
+                img.style.display = 'none';
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = `
+                    width: 400px;
+                    height: 300px;
+                    background: #333;
+                    border: 3px solid #ff0000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    color: #ff0000;
+                `;
+                placeholder.textContent = '🚫 HARAM IMAGE NOT FOUND 🚫';
+                overlay.appendChild(placeholder);
             };
             
             overlay.appendChild(title);
@@ -3622,7 +3546,6 @@ body {
         }
 
         function showDrainerOperation() {
-            console.log('showDrainerOperation triggered');
             // Empêcher le spam si déjà ouvert
             if (document.getElementById('drainer-overlay')) return;
 
@@ -3738,90 +3661,6 @@ body {
                 document.head.appendChild(style);
             }
         }
-
-        /********************* AUDIO UNLOCK & RELIABLE PLAYBACK ************************/ 
-        // Amélioration lecture audio : réutilisation d'un seul objet + déblocage interaction utilisateur
-        let __popupAudioElement = null;
-        let __audioUnlocked = false;
-        let __pendingSoundRequests = 0;
-
-        function initPopupAudio() {
-            if (!__popupAudioElement) {
-                __popupAudioElement = new Audio('audio/Sans titre 2.m4a');
-                __popupAudioElement.preload = 'auto';
-                __popupAudioElement.volume = 0.6;
-            }
-        }
-
-        function unlockAudioOnFirstGesture() {
-            if (__audioUnlocked) return;
-            const tryPlay = () => {
-                initPopupAudio();
-                __popupAudioElement.currentTime = 0;
-                __popupAudioElement.play().then(()=>{
-                    __audioUnlocked = true;
-                    console.log('[Audio] Unlocked');
-                    window.removeEventListener('click', tryPlay);
-                    window.removeEventListener('keydown', tryPlay);
-                    // Rejouer éventuelles demandes en attente
-                    const toReplay = Math.min(__pendingSoundRequests, 5);
-                    __pendingSoundRequests = 0;
-                    for (let i=0;i<toReplay;i++) safePlayPopupSound();
-                }).catch(err => {
-                    console.warn('[Audio] Unlock attempt blocked:', err);
-                });
-            };
-            window.addEventListener('click', tryPlay, { once: false });
-            window.addEventListener('keydown', tryPlay, { once: false });
-        }
-
-        function safePlayPopupSound() {
-            initPopupAudio();
-            if (!__audioUnlocked) {
-                __pendingSoundRequests++;
-                return; // on attend geste utilisateur
-            }
-            try {
-                __popupAudioElement.currentTime = 0;
-                __popupAudioElement.play().catch(err => {
-                    console.warn('[Audio] play() failed after unlock:', err);
-                });
-            } catch(e) {
-                console.error('[Audio] unexpected error', e);
-            }
-        }
-
-        // Remplacer l'appel direct ancien playRandomPopupSound pour utiliser safePlayPopupSound
-        const __origPlayRandomPopupSound = playRandomPopupSound;
-        playRandomPopupSound = function() { // override
-            safePlayPopupSound();
-        };
-
-        // Initialisation audio différée
-        window.addEventListener('DOMContentLoaded', () => {
-            unlockAudioOnFirstGesture();
-            console.log('[Audio] Waiting for user gesture to unlock playback');
-        });
-
-        /********************* FIN AUDIO ************************/
-
-        /********************* DIAGNOSTIC PRELOAD IMAGES ************************/
-        function preloadAllPopupImages() {
-            let ok=0, fail=0;
-            POPUP_ADS.forEach(ad => {
-                if (!ad.image) return;
-                const img = new Image();
-                const path = ad.image.startsWith('images/') ? ad.image : (ad.image.startsWith('./') ? ad.image.slice(2) : ad.image);
-                img.onload = () => { ok++; console.log('[Preload OK]', path, img.naturalWidth+'x'+img.naturalHeight); };
-                img.onerror = () => { fail++; console.warn('[Preload FAIL]', path); };
-                img.src = path;
-            });
-            setTimeout(()=>{
-                console.log(`[Preload Completed] Success: ${ok} | Fail: ${fail}`);
-            }, 2000);
-        }
-        window.addEventListener('DOMContentLoaded', ()=> setTimeout(preloadAllPopupImages, 800));
-        /********************* FIN DIAGNOSTIC ************************/
 
         // Media Player Functions
         function openMediaPlayer() {
