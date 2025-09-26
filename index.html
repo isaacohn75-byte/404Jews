@@ -2662,7 +2662,7 @@ body {
             },
             {
                 title: '📷 Photo 4',
-                image: './images/photo4.jpeg',
+                image: 'images/photo4.jpeg',
                 width: 500,
                 height: 400,
                 urgent: false,
@@ -2672,7 +2672,7 @@ body {
             },
             {
                 title: '📷 Photo 5',
-                image: './images/photo5.jpeg',
+                image: 'images/photo5.jpeg',
                 width: 500,
                 height: 400,
                 urgent: false,
@@ -2773,6 +2773,13 @@ body {
             // Wallpapers supprimés des popups
         ];
 
+        // Normalisation des chemins d'images (supprimer éventuel préfixe './')
+        POPUP_ADS.forEach(ad => {
+            if (ad.image && ad.image.startsWith('./')) {
+                ad.image = ad.image.slice(2);
+            }
+        });
+
         // Prioritize specific imported images so they appear first in rotation, in a defined order.
         (function prioritizeImportedPopups() {
             try {
@@ -2819,13 +2826,13 @@ body {
         // Affiche les trois images prioritaires séquentiellement au chargement, puis lance la rotation normale
         window.addEventListener('DOMContentLoaded', function() {
             const priorityImages = [
-                'exam_meme.jpeg',
-                'group_photo1.jpeg',
-                'meme_other.jpeg'
+                'images/exam_meme.jpeg',
+                'images/group_photo1.jpeg',
+                'images/meme_other.jpeg'
             ];
             for (const img of priorityImages) {
-                const ad = POPUP_ADS.find(a => a.image === img);
-                if (ad) createPopup(ad);
+                const ad = POPUP_ADS.find(a => a.image === img || a.image.endsWith('/'+img) || a.image.endsWith(img.replace('images/','')));
+                if (ad) createPopup(ad); else console.warn('Priority popup introuvable:', img);
             }
             // Démarre la rotation normale après un court délai
             setTimeout(function() {
@@ -3456,29 +3463,32 @@ body {
                 background: #222;
             `;
             
-            // Utiliser directement l'image _ (3).jpeg avec encodage URL
-            img.src = 'images/_%20(3).jpeg';
-            img.onload = function() {
-                console.log('HARAM image loaded successfully: _ (3).jpeg');
-            };
-            img.onerror = function() {
-                console.log('Failed to load HARAM image: _ (3).jpeg');
-                // En cas d'erreur, afficher un message d'erreur
-                img.style.display = 'none';
-                const placeholder = document.createElement('div');
-                placeholder.style.cssText = `
-                    width: 400px;
-                    height: 300px;
-                    background: #333;
-                    border: 3px solid #ff0000;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 24px;
-                    color: #ff0000;
-                `;
-                placeholder.textContent = '🚫 HARAM IMAGE NOT FOUND 🚫';
-                overlay.appendChild(placeholder);
+            // Image principale HARAM
+            const primaryHaram = 'images/haram_image.jpg';
+            const fallbackHaram = 'images/_%20(3).jpeg';
+            img.src = primaryHaram;
+            img.onload = () => console.log('HARAM image loaded:', primaryHaram);
+            img.onerror = () => {
+                console.warn('Primary HARAM image failed, fallback to', fallbackHaram);
+                img.onerror = () => {
+                    console.error('Fallback HARAM image also failed');
+                    img.style.display = 'none';
+                    const placeholder = document.createElement('div');
+                    placeholder.style.cssText = `
+                        width: 400px;
+                        height: 300px;
+                        background: #333;
+                        border: 3px solid #ff0000;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 24px;
+                        color: #ff0000;
+                    `;
+                    placeholder.textContent = '🚫 HARAM IMAGE NOT FOUND 🚫';
+                    overlay.appendChild(placeholder);
+                };
+                img.src = fallbackHaram;
             };
             
             overlay.appendChild(title);
@@ -3553,6 +3563,7 @@ body {
         }
 
         function showDrainerOperation() {
+            console.log('showDrainerOperation triggered');
             // Empêcher le spam si déjà ouvert
             if (document.getElementById('drainer-overlay')) return;
 
