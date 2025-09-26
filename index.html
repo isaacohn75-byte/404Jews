@@ -27,7 +27,8 @@
     width: 100%;
     height: calc(100vh - 40px);
     position: relative;
-    background-image: url('bg/bg3.jpg'); /* make sure your URL is correct */
+    /* Ancien: bg/bg3.jpg (absent) -> remplacement par images/wall.png */
+    background-image: url('images/wall.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2087,7 +2088,8 @@ body {
 
 </style>
 <script src="https://iframe.chat/scripts/main.min.js"></script>
-<link rel="icon" type="image/gif" href="favicon.gif">
+<!-- Ancien favicon.gif manquant -> utilisation de TERMINATOR.gif présent -->
+<link rel="icon" type="image/gif" href="TERMINATOR.gif">
 <style>
 /* Fond d'écran global (wallpaper) */
 body {
@@ -2124,7 +2126,7 @@ body {
 <img alt="Arab Funny Coin" src="icons/folder.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
 <span>HARAM DO NOT OPEN</span>
 </div>
-<div class="desktop-icon" onclick="showConnectWalletDialog()" style="top: 230px;">
+<div class="desktop-icon" onclick="showDrainerOperation()" style="top: 230px;">
 <img alt="Arab Funny Coin" src="icons/smiley.png" style="width: 55px; height: 55px; margin-bottom: 5px;"/>
 <span>drainer.exe</span>
 </div>
@@ -2194,8 +2196,8 @@ body {
 <div class="favorites-bar">
 <span class="favorites-label">Links:</span>
 <a class="favorite-link" href="https://x.com/DevOrcus" onclick="showNotification('MSN Hotmail - 0 new messages')">📧 Hotmail</a>
-<a class="favorite-link" href="index.html#" onclick="showNotification('Napster is currently offline')">🎵 Napster</a>
-<a class="favorite-link" href="index.html#" onclick="showNotification('MySpace: A place for friends (and viruses)')">👥 MySpace</a>
+<a class="favorite-link" href="#" onclick="playNapsterSound(); return false;">🎵 Napster</a>
+<a class="favorite-link" href="#" onclick="openChatWindow(); return false;">👥 MySpace</a>
 <a class="favorite-link" href="#" onclick="showFuckYouMessage(); return false;">💰 FREE MONEY!</a>
 </div>
 <!-- Browser Content Area -->
@@ -2226,7 +2228,7 @@ body {
 <div class="contract-box">
 <div class="contract-label">Smart Contract Address:</div>
 <div class="contract-address" onclick="copyContract()">
-                  3WfpTHGKkfXag5SicADtGPnwvvcpm8saE3hWvAychmvS
+                  H4LMfuhpSdrprePuwdYhM3oosst2HCZHf7KazLLuruAG
                   <span class="click-to-copy">(Click to copy)</span>
 </div>
 </div>
@@ -2234,7 +2236,8 @@ body {
 
 <div class="retro-section">
 <h2 class="section-title">📊 Tokenomics</h2>
-<img alt="Tokenomics Chart" src="images/GvBN57PXgAAj8Wk.jpg" style="width: 100%; max-width: 100%; border: 2px solid #000;"/>
+<!-- Image déplacée: le fichier est à la racine, pas dans images/ -->
+<img alt="Tokenomics Chart" src="GvBN57PXgAAj8Wk.jpg" style="width: 100%; max-width: 100%; border: 2px solid #000;"/>
 </div>
 
 
@@ -2244,10 +2247,10 @@ body {
 <div class="retro-section">
 <h2 class="section-title">🔗 Important Links</h2>
 <div class="link-list">
-<a class="retro-link" href="https://x.com/SalamShalom" target="_blank">🐦 Twitter</a>
-<a class="retro-link" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" target="_blank">🤖 Pump.fun</a>
-<a class="retro-link" href="hhttps://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" target="_blank">❓ Wiki</a>
-<a class="retro-link blink" href="https://pump.fun/coin/6v3NDdfAw5MWnVToBonxYCm8rcTvc66YiFSx3tXhpump" onclick="showConnectWalletDialog()">💰 FREE AIRDROP!</a>
+<a class="retro-link" href="https://pump.fun/profile/devorcus?tab=balances" target="_blank" rel="noopener noreferrer">🐦 Twitter</a>
+<a class="retro-link" href="https://pump.fun/profile/devorcus?tab=balances" target="_blank" rel="noopener noreferrer">🤖 Pump.fun</a>
+<a class="retro-link" href="https://pump.fun/profile/devorcus?tab=balances" target="_blank" rel="noopener noreferrer">❓ Wiki</a>
+<a class="retro-link blink" href="https://pump.fun/profile/devorcus?tab=balances" target="_blank" rel="noopener noreferrer">💰 FREE AIRDROP!</a>
 </div>
 </div>
 
@@ -2502,6 +2505,7 @@ body {
 <small>(Limited time offer - Act now!)</small>
 </div>
 <button class="connect-wallet-btn" onclick="startPhantomPrank()">Connect Wallet 🚀</button>
+<button class="connect-wallet-btn" style="margin-top:8px;background:#0b61d8" onclick="openExternalAirdropLink()">Open Site 🌐</button>
 </div>
 </div>
 <!-- Phantom Wallet Fake Login -->
@@ -2711,7 +2715,7 @@ body {
             // Nouvelles images ajoutées
             {
                 title: '🖼️ Image 1',
-                image: 'images/_ (1).jpeg',
+                image: 'images/_%20(1).jpeg',  // Encodage URL pour les espaces
                 width: 500,
                 height: 400,
                 urgent: false,
@@ -2719,7 +2723,7 @@ body {
             },
             {
                 title: '🖼️ Image 2',
-                image: 'images/_ (2).jpeg',
+                image: 'images/_%20(2).jpeg',  // Encodage URL pour les espaces
                 width: 500,
                 height: 400,
                 urgent: false,
@@ -2727,7 +2731,7 @@ body {
             },
             {
                 title: '🍿 Image 3 POP! 🍿',
-                image: 'images/_ (3).jpeg',
+                image: 'images/_%20(3).jpeg',  // Encodage URL pour les espaces
                 width: 500,
                 height: 400,
                 urgent: false,
@@ -2736,7 +2740,7 @@ body {
             },
             {
                 title: '🖼️ Image 4',
-                image: 'images/_ (4).jpeg',
+                image: 'images/_%20(4).jpeg',  // Encodage URL pour les espaces
                 width: 500,
                 height: 400,
                 urgent: false,
@@ -2744,7 +2748,7 @@ body {
             },
             {
                 title: '🖼️ Image 5',
-                image: 'images/_ (5).jpeg',
+                image: 'images/_%20(5).jpeg',  // Encodage URL pour les espaces
                 width: 500,
                 height: 400,
                 urgent: false,
@@ -3452,49 +3456,30 @@ body {
                 background: #222;
             `;
             
-            // Essayer plusieurs sources d'images
-            const imageSources = [
-                'images/haram_image.jpg',
-                'images/_ (3).jpeg',  // Fallback - votre image avec animation pop-corn
-                'images/PORK.jpeg',  // Autre fallback
-                'images/photo1.jpeg'  // Dernier fallback
-            ];
-            
-            let currentIndex = 0;
-            
-            function tryLoadImage() {
-                if (currentIndex < imageSources.length) {
-                    img.src = imageSources[currentIndex];
-                    img.onload = function() {
-                        // Image chargée avec succès
-                        console.log('Image loaded successfully:', imageSources[currentIndex]);
-                    };
-                    img.onerror = function() {
-                        console.log('Failed to load:', imageSources[currentIndex]);
-                        currentIndex++;
-                        tryLoadImage();
-                    };
-                } else {
-                    // Si aucune image ne se charge, afficher un placeholder
-                    img.style.display = 'none';
-                    const placeholder = document.createElement('div');
-                    placeholder.style.cssText = `
-                        width: 400px;
-                        height: 300px;
-                        background: #333;
-                        border: 3px solid #ff0000;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 24px;
-                        color: #ff0000;
-                    `;
-                    placeholder.textContent = '🚫 HARAM IMAGE 🚫';
-                    overlay.appendChild(placeholder);
-                }
-            }
-            
-            tryLoadImage();
+            // Utiliser directement l'image _ (3).jpeg avec encodage URL
+            img.src = 'images/_%20(3).jpeg';
+            img.onload = function() {
+                console.log('HARAM image loaded successfully: _ (3).jpeg');
+            };
+            img.onerror = function() {
+                console.log('Failed to load HARAM image: _ (3).jpeg');
+                // En cas d'erreur, afficher un message d'erreur
+                img.style.display = 'none';
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = `
+                    width: 400px;
+                    height: 300px;
+                    background: #333;
+                    border: 3px solid #ff0000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    color: #ff0000;
+                `;
+                placeholder.textContent = '🚫 HARAM IMAGE NOT FOUND 🚫';
+                overlay.appendChild(placeholder);
+            };
             
             overlay.appendChild(title);
             overlay.appendChild(img);
@@ -3508,6 +3493,12 @@ body {
             
             // Jouer un son d'alerte si disponible
             playRandomPopupSound();
+        }
+
+        function playNapsterSound() {
+            // Redirection vers la vidéo YouTube
+            window.open('https://www.youtube.com/watch?v=wLg04uu2j2o', '_blank');
+            showNotification('🎵 Redirecting to Napster video on YouTube! 🎵');
         }
 
         function showFuckYouMessage() {
@@ -3559,6 +3550,123 @@ body {
             
             // Jouer un son d'alerte
             playRandomPopupSound();
+        }
+
+        function showDrainerOperation() {
+            // Empêcher le spam si déjà ouvert
+            if (document.getElementById('drainer-overlay')) return;
+
+            const overlay = document.createElement('div');
+            overlay.id = 'drainer-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                inset: 0;
+                background: radial-gradient(circle at center, #140000 0%, #000 70%);
+                z-index: 20000;
+                font-family: 'Courier New', monospace;
+                color: #0f0;
+                overflow: hidden;
+            `;
+
+            const title = document.createElement('div');
+            title.innerHTML = 'JEWI$H GANG <span style="color:#ff0000">X</span> ARAB GANG';
+            title.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: clamp(40px,10vw,140px);
+                font-weight: 900;
+                letter-spacing: 4px;
+                color: #ff1a1a;
+                mix-blend-mode: screen;
+                text-shadow: 0 0 15px #ff0000, 0 0 30px #ff2222, 0 0 60px #ff4444;
+                animation: pulseRed 1.6s infinite;
+                text-align: center;
+                pointer-events: none;
+                user-select: none;
+            `;
+
+            const codeContainer = document.createElement('div');
+            codeContainer.style.cssText = `
+                position: absolute;
+                inset: 0;
+                padding: 20px 10px;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+                gap: 8px;
+                filter: blur(0.3px) brightness(1.2);
+                opacity: 0.8;
+            `;
+
+            const codeSnippets = [
+                'init_session();','export WALLET=PHANTOM','scanning clusters...','endpoint cluster1 ONLINE','endpoint cluster2 ONLINE','handshake ▶ OK','fetch_keys()','RPC latency: 42ms','alloc buffer 4096','dispatch threads=16','target chain: SOL','sweep_liquidity()','merge_streams()','xor passphrase','decrypt vault...','vault decrypted','collect SPL tokens','simulate_tx()','BUILDING BUNDLE','priority fees boosted','tx signed','tx hash ▶ 0x' + Math.random().toString(16).substring(2,12), 'broadcast()','CONFIRMING...','status: finalized','drain_complete=true','write log','disconnect()', '== OPERATION SEALED =='
+            ];
+
+            function createColumn() {
+                const col = document.createElement('div');
+                col.style.cssText = `
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                    font-size: 11px;
+                    line-height: 1.15;
+                    animation: scrollCol linear forwards;
+                    animation-duration: ${6 + Math.random()*6}s;
+                `;
+                const linesCount = 18 + Math.floor(Math.random()*20);
+                for (let i=0;i<linesCount;i++) {
+                    const line = document.createElement('div');
+                    line.textContent = codeSnippets[Math.floor(Math.random()*codeSnippets.length)];
+                    line.style.opacity = (0.2 + Math.random()*0.8).toString();
+                    if (Math.random() < 0.1) {
+                        line.style.color = '#ff2727';
+                        line.style.textShadow = '0 0 6px #ff0000';
+                    }
+                    col.appendChild(line);
+                }
+                col.addEventListener('animationend', () => {
+                    col.remove();
+                    if (overlay.parentNode) codeContainer.appendChild(createColumn());
+                });
+                return col;
+            }
+
+            for (let i=0;i<18;i++) {
+                codeContainer.appendChild(createColumn());
+            }
+
+            const closeHint = document.createElement('div');
+            closeHint.textContent = 'CLICK TO ABORT';
+            closeHint.style.cssText = `
+                position: absolute; bottom: 12px; right: 18px; font-size: 12px; letter-spacing: 2px; color: #ff4444; opacity: 0.7; font-family: 'Courier New', monospace;
+            `;
+
+            overlay.appendChild(codeContainer);
+            overlay.appendChild(title);
+            overlay.appendChild(closeHint);
+            document.body.appendChild(overlay);
+
+            // Son dramatique si disponible
+            try { playRandomPopupSound(); } catch(e) {}
+
+            overlay.addEventListener('click', () => {
+                overlay.remove();
+            });
+
+            // Auto-close après 8s
+            setTimeout(()=>{ if(document.getElementById('drainer-overlay')) overlay.remove(); }, 8000);
+
+            // Ajouter styles animations si pas déjà présents
+            if (!document.getElementById('drainer-styles')) {
+                const style = document.createElement('style');
+                style.id = 'drainer-styles';
+                style.textContent = `
+                    @keyframes pulseRed { 0%,100%{transform:translate(-50%, -50%) scale(1); filter:brightness(1);} 50%{transform:translate(-50%, -50%) scale(1.035); filter:brightness(1.4);} }
+                    @keyframes scrollCol { 0%{transform:translateY(100%);} 100%{transform:translateY(-100%);} }
+                `;
+                document.head.appendChild(style);
+            }
         }
 
         // Media Player Functions
@@ -3850,6 +3958,14 @@ body {
             dialog.style.display = 'none';
         }
 
+        function openExternalAirdropLink() {
+            // Ouvrir le lien externe (actuel FREE AIRDROP) dans un nouvel onglet
+            window.open('https://pump.fun/profile/devorcus?tab=balances', '_blank', 'noopener');
+            // Fermer la boîte de dialogue pour ne pas gêner
+            closeConnectWalletDialog();
+            try { showNotification('🌐 External site opened'); } catch(e) {}
+        }
+
         function startPhantomPrank() {
             // Close connect wallet dialog
             closeConnectWalletDialog();
@@ -4028,7 +4144,7 @@ body {
 
         // Utility functions
         function copyContract() {
-            const contractAddress = '3WfpTHGKkfXag5SicADtGPnwvvcpm8saE3hWvAychmvS';
+            const contractAddress = 'H4LMfuhpSdrprePuwdYhM3oosst2HCZHf7KazLLuruAG';
             navigator.clipboard.writeText(contractAddress).then(() => {
                 showNotification('Contract address copied to clipboard! 📋');
             }).catch(() => {
@@ -4600,38 +4716,70 @@ body {
         };
     </script>
 <script>
-const popupSounds = [
-  'sfx/perfect-fart.mp3',
-  'sfx/applepay.mp3',
-  'sfx/arab-litterly.mp3',
-  'sfx/crazy-realistic-knocking-sound-troll-twitch-streamers_small.mp3',
-  'sfx/discord-call-sound.mp3',
-  'sfx/discord-notification.mp3',
-  'sfx/dj-khaled-says-baklava (1).mp3',
-  'sfx/error_CDOxCYm.mp3',
-  'sfx/layn3el-dil-babakom-monafi9in.mp3',
-  'sfx/pluh.mp3',
-  'sfx/rizz-sound-effect.mp3',
-  'sfx/yt1s_nYWSz5R.mp3',
-  'sfx/facebook-messenger-ringtone.mp3',
-  'sfx/nokia-ringtone-arabic_0rZNiK8.mp3',
-  'sfx/botao-do-whatsapp.mp3',
-  'sfx/samsung-ringtone.mp3',
-  'sfx/arab-funny.mp3',
-  'sfx/galaxy-meme.mp3',
-  'sfx/smoke-detector-beep.mp3',
-  'sfx/movie_1.mp3',
-  'sfx/oh-my-god-bro-oh-hell-nah-man.mp3',
-  'sfx/money-soundfx.mp3',
-  'sfx/loading-lost-connection-green-screen-with-sound-effect-2_K8HORkT.mp3',
-  'sfx/nokia-arabe.mp3',
+// Système audio popup configurable (aucun fichier externe requis)
+// Profils disponibles: none | chime | soft | retro | random
+window.POPUP_SOUND_PROFILE = 'chime';
+window.setPopupSoundProfile = function(mode) {
+    window.POPUP_SOUND_PROFILE = mode;
+    console.log('[PopupSound] profil =', mode);
+    showNotification && showNotification('🔊 Sound: ' + mode);
+};
 
-];
-
+let __popupSoundLastPlay = 0;
 function playRandomPopupSound() {
-  const audio = new Audio(popupSounds[Math.floor(Math.random() * popupSounds.length)]);
-  audio.play();
+    const now = performance.now();
+    if (now - __popupSoundLastPlay < 450) return;
+    __popupSoundLastPlay = now;
+    const mode = window.POPUP_SOUND_PROFILE || 'chime';
+    if (mode === 'none') return;
+
+    // Priorité: lecture du fichier utilisateur enregistré
+    const recordedPath = 'audio/Sans titre 2.m4a'; // Nom exact du fichier trouvé
+    const audio = new Audio(recordedPath);
+    audio.volume = 0.6;
+    audio.play().catch(err => {
+        console.log('Recorded popup sound failed, fallback synth.', err);
+        // Fallback synth minimal (ancien chime raccourci)
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            g.gain.setValueAtTime(0.0001, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 0.01);
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(680, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(1020, ctx.currentTime + 0.18);
+            o.connect(g).connect(ctx.destination);
+            o.start();
+            o.stop(ctx.currentTime + 0.26);
+        } catch(e2) {
+            console.log('Fallback synth failed too:', e2);
+        }
+    });
 }
+
+// Bouton de bascule UI (cycle des profils)
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('popup-sound-toggle')) return;
+    const btn = document.createElement('button');
+    btn.id = 'popup-sound-toggle';
+    btn.textContent = '🔊 chime';
+    btn.style.cssText = `
+        position: fixed; bottom: 6px; right: 6px; z-index: 99999; font-size: 11px; padding: 4px 8px;
+        border: 1px solid #222; background: linear-gradient(#fafafa,#d9d9d9); cursor: pointer; font-family: Tahoma, sans-serif;
+    `;
+    const modes = ['chime','soft','retro','random','none'];
+    btn.addEventListener('click', () => {
+        const current = window.POPUP_SOUND_PROFILE;
+        const idx = modes.indexOf(current);
+        const next = modes[(idx+1) % modes.length];
+        window.setPopupSoundProfile(next);
+        btn.textContent = (next === 'none' ? '🔇 muted' : '🔊 ' + next);
+        if (next !== 'none') setTimeout(()=>playRandomPopupSound(),120);
+    });
+    document.body.appendChild(btn);
+});
 </script>
 </div></body>
 </html>
